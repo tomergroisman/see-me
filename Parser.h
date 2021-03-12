@@ -15,7 +15,7 @@ int* parseUpdate() {
     Serial.print("Class Id: ");
     Serial.println(classId);
 
-    if (!String(classId).equals(CLASS_ID)) {
+    if (!String(classId).equals(String(CLASS_ID))) {
         Serial.println("Not me");
         return NULL;
     }

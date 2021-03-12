@@ -6,7 +6,6 @@
 /************** Definitions **************/
 
 #define MSG_BUFFER_SIZE  (255)
-String CLASS_ID = "6047c75db313be4c8829b7d5";
 
 /*********** Wifi Configuration **********/
 
@@ -31,11 +30,14 @@ uint32_t lastReconnectAttempt = 0;
 
 /********* Variable Declerations *********/
 
+char CLASS_ID[] = "6047c75db313be4c8829b7d5";
 int lights[MSG_BUFFER_SIZE];
 
 /********* Import Helper Classes *********/
 
 #include "Connections.h"
+#include "Tree.h"
+Tree tree(D5, D7, D8, D6);
 
 /************* Sketch Logic **************/
 
@@ -46,6 +48,7 @@ void setup() {
   
   connectToWifi();
   mqttConnect(false);
+  lights[0] = -1;
   
 }
 
@@ -53,5 +56,6 @@ void setup() {
 void loop() {
 
   mqttLoop();
+  tree.update();
   
 }

@@ -34,16 +34,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
         Serial.println("in update topic ");
         int* lingts = parseUpdate();
-        if (lights[0] != -1) {
-            int i = 0;
-            while (lights[i] != -1) {
-                Serial.print(lights[i]);
-                Serial.print(", ");
-                i++;
-            }
-            Serial.println();
-            Serial.println("rendering lights...");
-        }
+//        if (lights[0] != -1) {
+//            int i = 0;
+//            while (lights[i] != -1) {
+//                Serial.print(lights[i]);
+//                Serial.print(", ");
+//                i++;
+//            }
+//        }
         
     }
 
