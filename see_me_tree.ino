@@ -35,8 +35,8 @@ int lights[MSG_BUFFER_SIZE];
 
 /********* Import Helper Classes *********/
 
-#include "Connections.h"
-#include "Tree.h"
+#include "helpers/Connections.h"
+#include "helpers/Tree.h"
 Tree tree(D5, D7, D8, D6);
 
 /************* Sketch Logic **************/
