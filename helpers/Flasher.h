@@ -1,58 +1,118 @@
+#ifndef FLASHER_H
+#define FLASHER_H
+
 class Flasher {
-  
-    int r;
-    int g;
-    int b;
-    int delta;
-    int currentLed;
-    unsigned long prevMillis;
-    int comet;
+    
+    private:
+
+        int r;
+        int g;
+        int b;
+        int state;      // 0 - off, 1 - start, 2 - standby on 3 - destroy
+        unsigned long startTime;
+        long delta;
   
     public:
 
-        Flasher(int R, int G, int B, int deltaMillis) {
+        Flasher(int R, int G, int B) {
+
             r = R;
             g = G;
             b = B;
-            delta = deltaMillis;
-            currentLed = -1;
-            prevMillis = millis();
-            comet = 0;
+            state = 0;
+
+            randomSeed(analogRead(0) ^ analogRead(1) ^ analogRead(2));
+ 
         }
 
-        // Flasher loop function
-        void Update() {
-            if (millis() - prevMillis >= delta) {
-                currentLed = (currentLed + 1) % 10;
-                CircuitPlayground.clearPixels();
-                CircuitPlayground.setPixelColor(currentLed, r, g, b);
-                updateComet();
-                if (comet > 0) {
-                    CircuitPlayground.setPixelColor((currentLed + 9) % 10, r / 4, g / 4, b / 4);
+        // Flasher update function
+        void update() {
+            switch (state) {
+
+                case 0: {
+
+                    setRGB(0, 0, 0);
+                    break;
+
                 }
-                if (comet > 1) {
-                    CircuitPlayground.setPixelColor((currentLed + 8) % 10, r / 7, g / 7, b / 7);
+
+                case 1: {
+
+                    int diff = millis() - startTime;
+                    if (diff <= delta) {
+
+                        float prec = float(diff) / float(delta);
+                        setRGB(prec * r, prec * g, prec * b);
+
+                    }
+                    else {
+
+                        setRGB(r, g, b);
+                        state = 2;
+
+                    }
                 }
-                prevMillis = millis();
+
+                case 2: {
+
+                    break;
+
+                }
+
+                case 3: {
+
+                    int diff = millis() - startTime;
+                    if (diff <= delta) {
+
+                        float prec = float(diff) / float(delta);
+                        setRGB(r - prec * r, g - prec * g, b - prec * b);
+
+                    }
+                    else {
+
+                        setRGB(0, 0, 0);
+                        state = 0;
+
+                    }
+                    break;
+
+                }
+
             }
+
         }
 
-        // Clear all the leds
-        void Destroy() {
-            CircuitPlayground.clearPixels();
-            currentLed = -1;
-            comet = 0;
+        // Turn off LED
+        void start() {
+
+            startTime = millis();
+            delta = random(500, 5000);
+            state = 1;
+
         }
 
-        // 3 leds logic
-        void updateComet() {
-            if (comet < 2) {
-                if (comet == 0 && currentLed == 1) {
-                   comet = 1;
-                }
-                if (comet == 1 && currentLed == 2) {
-                   comet = 2;
-                }
-            }
+        // Turn off LED
+        void destroy() {
+            
+            startTime = millis();
+            delta = random(500, 5000);
+            state = 3;
+
         }
+
+        // Set LED to RGB color
+        void setRGB(int R, int G, int B) {
+
+            analogWrite(rPin, R);
+            analogWrite(gPin, G);
+            analogWrite(bPin, B);
+
+        }
+
+        int getState() {
+            return state;
+        }
+
 };
+
+#endif

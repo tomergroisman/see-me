@@ -6,6 +6,11 @@
 /************** Definitions **************/
 
 #define MSG_BUFFER_SIZE  (255)
+#define NUM_LEDS  1
+#define rPin  D5
+#define gPin  D7
+#define bPin  D8
+#define buttonPin  D6
 
 /*********** Wifi Configuration **********/
 
@@ -37,7 +42,9 @@ int lights[MSG_BUFFER_SIZE];
 
 #include "helpers/Connections.h"
 #include "helpers/Tree.h"
-Tree tree(D5, D7, D8, D6);
+#include "helpers/Flasher.h"
+Flasher *leds = (Flasher*)malloc(sizeof(Flasher) * NUM_LEDS);
+Tree tree(rPin, gPin, bPin, buttonPin, leds);
 
 /************* Sketch Logic **************/
 
