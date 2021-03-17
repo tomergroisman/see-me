@@ -2,15 +2,17 @@
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <FastLED.h>
 
 /************** Definitions **************/
 
-#define MSG_BUFFER_SIZE  (255)
+#define MSG_BUFFER_SIZE  255
 #define NUM_LEDS  1
 #define rPin  D5
 #define gPin  D7
 #define bPin  D8
-#define buttonPin  D6
+#define buttonPin D6
+#define strand WS2812B
 
 /*********** Wifi Configuration **********/
 
@@ -36,15 +38,15 @@ uint32_t lastReconnectAttempt = 0;
 /********* Variable Declerations *********/
 
 char CLASS_ID[] = "6047c75db313be4c8829b7d5";
-int lights[MSG_BUFFER_SIZE];
+int colors[MSG_BUFFER_SIZE];
 
 /********* Import Helper Classes *********/
 
 #include "helpers/Connections.h"
 #include "helpers/Tree.h"
 #include "helpers/Flasher.h"
-Flasher *leds = (Flasher*)malloc(sizeof(Flasher) * NUM_LEDS);
-Tree tree(rPin, gPin, bPin, buttonPin, leds);
+Flasher flashers[NUM_LEDS];
+Tree tree(rPin, gPin, bPin, buttonPin, colors, flashers);
 
 /************* Sketch Logic **************/
 
@@ -55,7 +57,7 @@ void setup() {
   
   connectToWifi();
   mqttConnect(false);
-  lights[0] = -1;
+  colors[0] = -1;
   
 }
 

@@ -8,6 +8,9 @@ void connectToWifi() {
     Serial.println(ssid);
   
     WiFi.mode(WIFI_STA);
+
+    WiFi.persistent(false);
+    WiFi.disconnect(true);
     WiFi.begin(ssid, password);
   
     while (WiFi.status() != WL_CONNECTED) {
@@ -33,15 +36,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     if (strcmp(topic, updateTopic) == 0) {
 
         Serial.println("in update topic ");
-        int* lingts = parseUpdate();
-//        if (lights[0] != -1) {
-//            int i = 0;
-//            while (lights[i] != -1) {
-//                Serial.print(lights[i]);
-//                Serial.print(", ");
-//                i++;
-//            }
-//        }
+        parseUpdate();
         
     }
 

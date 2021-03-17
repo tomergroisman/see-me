@@ -7,38 +7,37 @@ void parseMsg(byte* payload, unsigned int length) {
 }
 
 // Parse an update message
-int* parseUpdate() {
+void parseUpdate() {
 
     Serial.println(msg);
-    lights[0] = -1;
+    colors[0] = -1;
     char* classId = strtok(msg, " ");
     Serial.print("Class Id: ");
     Serial.println(classId);
 
     if (!String(classId).equals(String(CLASS_ID))) {
+        
         Serial.println("Not me");
-        return NULL;
     }
     
     char* payload = strtok(NULL, " ");
     Serial.print("payload: ");
     Serial.println(payload);
 
-    char* light = strtok(payload, ",");
+    char* color = strtok(payload, ",");
     int i = 0;
-    while (light != NULL) {
-        lights[i] = atoi(light);
-        light = strtok(NULL, ",");
+    while (color != NULL) {
+        colors[i] = atoi(color);
+        color = strtok(NULL, ",");
         i++;
     }
-    lights[i] = -1;
-
-    return lights;
+    colors[i] = -1;
     
 }
 
 // Parse a preview message
-int* parsePreview() {
+void parsePreview() {
+
     Serial.println(msg);
-    return NULL;
+
 }

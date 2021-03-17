@@ -10,66 +10,61 @@ class Tree {
         int gPin;
         int bPin;
         int buttonPin;
-        Flasher* leds;
+        int* colors;
+        Flasher* flashers;
         unsigned long lastClick;
 
     public:
 
-        Tree(int r, int g, int b, int button, Flasher *ledsList) {
+        Tree(int r, int g, int b, int _buttonPin, int* _colors, Flasher* _flashers) {
 
             rPin = r;
             gPin = g;
             bPin = b;
-            buttonPin = button;
-            leds = ledsList;
-            lastClick = millis();
+            colors = _colors;
+            buttonPin = _buttonPin;
+            flashers = _flashers;
 
+            lastClick = millis();
             pinMode(buttonPin, INPUT_PULLUP);
 
         }
 
         void update() {
 
-            // Check for initiated update
-            int buttonState = digitalRead(buttonPin);
-            if (buttonState == LOW && millis() - lastClick > 1500) {
-
-                Serial.println("pull update");
-                lastClick = millis();
-                mqtt.publish(updateTopic, CLASS_ID);
-
-            }
-
             // Update leds
             for (int i = 0; i < NUM_LEDS; i++) {
 
-                leds[i].update();
+                flashers[i].update();
+                yield();
 
             }
 
-            // Update tree lights state
-            if (lights[0] != -1) {
+            checkUpdateRequest();
+
+            // Update tree colors payload list
+            if (colors[0] != -1) {
                 
                 Serial.print("updating... ");
                 int i = 0;
-                while (lights[i] != -1) {
+                while (colors[i] != -1) {
 
                     // If the LED if off
-                    if (leds[NUM_LEDS  - 1].getState() == 0) {
+                    if (flashers[NUM_LEDS  - 1].getState() == 0) {
 
-                        Serial.print(lights[0]);
                         Serial.print(" ");
                         Serial.print("R: ");
-                        Serial.print(lights[i] >> 16);
+                        Serial.print(colors[i] >> 16);
                         Serial.print(" G: ");
-                        Serial.print((lights[i] & 0x00ff00) >> 8);
+                        Serial.print((colors[i] & 0x00ff00) >> 8);
                         Serial.print(" B: ");
-                        Serial.print(lights[i] & 0x0000ff);
+                        Serial.print(colors[i] & 0x0000ff);
                         
                         // Flaser led
-                        leds[i] = Flasher(lights[i] >> 16, (lights[i] & 0x00ff00) >> 8, lights[i] & 0x0000ff);
-                        leds[i].start();
+                        flashers[i].setColor(colors[i] >> 16, (colors[i] & 0x00ff00) >> 8, colors[i] & 0x0000ff);
+                        flashers[i].start();
                         i++;
+                        yield();
                         
                     }
 
@@ -77,10 +72,11 @@ class Tree {
                     else {
 
                         // Turn the LED to destroy state
-                        if (leds[NUM_LEDS  - 1].getState() != 3) {
+                        if (flashers[NUM_LEDS  - 1].getState() != 3) {
                             for (int j = 0; j < NUM_LEDS; j++) {
 
-                                leds[j].destroy();
+                                flashers[j].destroy();
+                                yield();
 
                             }
                         }
@@ -88,7 +84,8 @@ class Tree {
                         else {
                             for (int i = 0; i < NUM_LEDS; i++) {
 
-                                leds[i].update();
+                                flashers[i].update();
+                                yield();
 
                             }
                         }
@@ -97,7 +94,21 @@ class Tree {
 
                 }
                 Serial.println();
-                lights[0] = -1;
+                colors[0] = -1;
+
+            }
+
+        }
+
+        // Check for lunch update
+        void checkUpdateRequest() {
+
+            int buttonState = digitalRead(buttonPin);
+            if (buttonState == LOW && millis() - lastClick > 1500) {
+
+                Serial.println("pull update");
+                lastClick = millis();
+                mqtt.publish(updateTopic, CLASS_ID);
 
             }
 

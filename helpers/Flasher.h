@@ -1,6 +1,9 @@
 #ifndef FLASHER_H
 #define FLASHER_H
 
+#define minDelta 500
+#define maxDelta 3000
+
 class Flasher {
     
     private:
@@ -14,15 +17,25 @@ class Flasher {
   
     public:
 
-        Flasher(int R, int G, int B) {
+        Flasher() {
 
-            r = R;
-            g = G;
-            b = B;
+            r = 0;
+            g = 0;
+            b = 0;
             state = 0;
 
             randomSeed(analogRead(0) ^ analogRead(1) ^ analogRead(2));
  
+        }
+
+        // Set Led color
+        void setColor(int _r, int _g, int _b) {
+
+            r = _r;
+            g = _g;
+            b = _b;
+            state = 0;
+
         }
 
         // Flasher update function
@@ -86,7 +99,7 @@ class Flasher {
         void start() {
 
             startTime = millis();
-            delta = random(500, 5000);
+            delta = random(minDelta, maxDelta);
             state = 1;
 
         }
@@ -95,7 +108,7 @@ class Flasher {
         void destroy() {
             
             startTime = millis();
-            delta = random(500, 5000);
+            delta = random(minDelta, maxDelta);
             state = 3;
 
         }
