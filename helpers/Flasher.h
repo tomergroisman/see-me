@@ -11,12 +11,14 @@ class Flasher {
         int r;
         int g;
         int b;
+        CRGB* led;
         int state;      // 0 - off, 1 - start, 2 - standby on 3 - destroy
         unsigned long startTime;
         long delta;
   
     public:
 
+        // Constructor
         Flasher() {
 
             r = 0;
@@ -26,6 +28,13 @@ class Flasher {
 
             randomSeed(analogRead(0) ^ analogRead(1) ^ analogRead(2));
  
+        }
+
+        // Set a CRGB Led
+        void setLed(CRGB* _led) {
+
+            led = _led;
+
         }
 
         // Set Led color
@@ -116,9 +125,8 @@ class Flasher {
         // Set LED to RGB color
         void setRGB(int R, int G, int B) {
 
-            analogWrite(rPin, R);
-            analogWrite(gPin, G);
-            analogWrite(bPin, B);
+            *led = CRGB(R, G, B);
+            FastLED.show();
 
         }
 
