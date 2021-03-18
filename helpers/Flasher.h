@@ -130,6 +130,7 @@ class Flasher {
 
         }
 
+        // Get state of a LED
         int getState() {
             return state;
         }

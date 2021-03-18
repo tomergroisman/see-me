@@ -68,6 +68,9 @@ void setup() {
       flashers[i].setLed(&leds[i]);
       
   }
+
+  randomSeed(analogRead(0) ^ analogRead(1) ^ analogRead(2));
+  FastLED.setBrightness(random(30, 100));
   
 }
 

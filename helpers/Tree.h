@@ -46,11 +46,11 @@ class Tree {
             if (colors[0] != -1) {
                 
                 Serial.print("updating... ");
-                int i = 0;
-                while (colors[i] != -1) {
 
-                    // If the LED if off
-                    if (flashers[NUM_LEDS  - 1].getState() == 0) {
+                // If the LED if off
+                if (all(0)) {
+
+                    for (int i = 0; i < NUM_LEDS; i++) {
 
                         Serial.print(" ");
                         Serial.print("R: ");
@@ -63,41 +63,30 @@ class Tree {
                         // Flaser led
                         flashers[i].setColor(colors[i] >> 16, (colors[i] & 0x00ff00) >> 8, colors[i] & 0x0000ff);
                         flashers[i].start();
-                        i++;
                         yield();
-                        
+
                     }
 
-                    // If the LED is on
-                    else {
-
-                        // Turn the LED to destroy state
-                        if (flashers[NUM_LEDS  - 1].getState() != 3) {
-                            for (int j = 0; j < NUM_LEDS; j++) {
-
-                                flashers[j].destroy();
-                                yield();
-
-                            }
-                        }
-                        // Turn off the LED
-                        else {
-                            for (int i = 0; i < NUM_LEDS; i++) {
-
-                                flashers[i].update();
-                                yield();
-
-                            }
-                        }
-                        
-                    }
-
+                    colors[0] = -1;
+                    
                 }
-                Serial.println();
-                colors[0] = -1;
 
+                // If the LED is on
+                else {
+
+                    // Turn the LED to destroy state
+                    if (!one(3)) {
+
+                        for (int i = 0; i < NUM_LEDS; i++) {
+
+                            flashers[i].destroy();
+                            yield();
+
+                        }
+
+                    }
+                }
             }
-
         }
 
         // Check for lunch update
@@ -111,6 +100,42 @@ class Tree {
                 mqtt.publish(updateTopic, CLASS_ID);
 
             }
+
+        }
+
+        // Check if all Leds are on specific state
+        bool all(int state) {
+            
+            for (int i = 0; i < NUM_LEDS; i++) {
+
+                if (flashers[i].getState() != state) {
+
+                    return false;
+
+                }
+                yield();
+
+            }
+
+            return true;
+
+        }
+
+        // Check if at least one Led is on specific state
+        bool one(int state) {
+            
+            for (int i = 0; i < NUM_LEDS; i++) {
+
+                if (flashers[i].getState() == state) {
+
+                    return true;
+
+                }
+                yield();
+
+            }
+
+            return false;
 
         }
 };
