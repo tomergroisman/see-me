@@ -1,16 +1,14 @@
 /**************** Imports ****************/
 
 #include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
 #include <PubSubClient.h>
 #include <FastLED.h>
 
 /************** Definitions **************/
 
-#define MSG_BUFFER_SIZE  255
+#define MSG_BUFFER_SIZE 1024
 #define NUM_LEDS  10
-#define rPin  D5
-#define gPin  D7
-#define bPin  D8
 #define buttonPin D6
 #define strand WS2812B
 #define strandPin 5
@@ -21,6 +19,10 @@
 // Update these with values suitable for your network.
 const char* ssid = "Tomer&aya";
 const char* password = "1702196060";
+
+/******** Web Server Configuration *******/
+
+const String host = "18.133.245.223:3000";
 
 /*********** MQTT Configuration **********/
 
@@ -49,7 +51,7 @@ int colors[MSG_BUFFER_SIZE];
 #include "helpers/Flasher.h"
 Flasher flashers[NUM_LEDS];
 CRGB leds[NUM_LEDS];
-Tree tree(rPin, gPin, bPin, buttonPin, colors, flashers);
+Tree tree(buttonPin, colors, flashers);
 
 /************* Sketch Logic **************/
 

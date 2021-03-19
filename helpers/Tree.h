@@ -6,9 +6,6 @@ class Tree {
 
     private:
 
-        int rPin;
-        int gPin;
-        int bPin;
         int buttonPin;
         int* colors;
         Flasher* flashers;
@@ -16,11 +13,8 @@ class Tree {
 
     public:
 
-        Tree(int r, int g, int b, int _buttonPin, int* _colors, Flasher* _flashers) {
+        Tree(int _buttonPin, int* _colors, Flasher* _flashers) {
 
-            rPin = r;
-            gPin = g;
-            bPin = b;
             colors = _colors;
             buttonPin = _buttonPin;
             flashers = _flashers;
@@ -45,11 +39,11 @@ class Tree {
             // Update tree colors payload list
             if (colors[0] != -1) {
                 
-                Serial.print("updating... ");
 
                 // If the LED if off
                 if (all(0)) {
 
+                    Serial.println("updating...");
                     for (int i = 0; i < NUM_LEDS; i++) {
 
                         Serial.print(" ");
@@ -58,7 +52,7 @@ class Tree {
                         Serial.print(" G: ");
                         Serial.print((colors[i] & 0x00ff00) >> 8);
                         Serial.print(" B: ");
-                        Serial.print(colors[i] & 0x0000ff);
+                        Serial.println(colors[i] & 0x0000ff);
                         
                         // Flaser led
                         flashers[i].setColor(colors[i] >> 16, (colors[i] & 0x00ff00) >> 8, colors[i] & 0x0000ff);
@@ -95,9 +89,10 @@ class Tree {
             int buttonState = digitalRead(buttonPin);
             if (buttonState == LOW && millis() - lastClick > 1500) {
 
-                Serial.println("pull update");
+                Serial.println();
+                Serial.println("PULLING UPDATE");
                 lastClick = millis();
-                mqtt.publish(updateTopic, CLASS_ID);
+                get(host, "/update/" + String(CLASS_ID), "UPDATE");
 
             }
 
