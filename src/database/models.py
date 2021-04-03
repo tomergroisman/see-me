@@ -1,4 +1,6 @@
-from mongoengine import Document, UUIDField, IntField, StringField, ReferenceField, BooleanField
+from mongoengine import Document, UUIDField, IntField, StringField, ReferenceField, BooleanField, DateTimeField
+from datetime import datetime, timezone
+import pytz
 
 # School model
 class School(Document):
@@ -39,6 +41,7 @@ class Report(Document):
     class_ref = ReferenceField(Class)
     report = IntField(min_value=-5, max_value=5)
     new = BooleanField()
+    time = DateTimeField(default=datetime.now(pytz.timezone('Asia/Jerusalem')))
 
     # Metadata
     meta = {
