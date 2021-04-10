@@ -1,8 +1,7 @@
 import numpy as np
 from database.database import Database as db
 from classes.reports import Reports
-from helpers.colors import get_color_dict, generate_color_list
-from config import NUM_LEDS
+from helpers.colors import Colors
 
 class Tree:
     """
@@ -11,12 +10,13 @@ class Tree:
     Exceptions:
         ValueError - If class id is not valid
     """
-    def __init__(self, class_id):
+    def __init__(self, class_id, n_leds):
         """
         Tree constructor
         """
         if _is_valid(class_id):
             self.class_id = class_id
+            self.n_leds = n_leds
         else:
             raise ValueError("Invalid class id")
 
@@ -31,8 +31,8 @@ class Tree:
             return []
 
         reports = list(map(lambda report: report.report, raw_reports))
-        colors_dict = get_color_dict(reports)
-        color_list = generate_color_list(colors_dict)
+        colors = Colors(n_leds=self.n_leds)
+        color_list = colors.generate_color_list(reports)
 
         return color_list
 

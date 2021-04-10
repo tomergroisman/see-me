@@ -2,6 +2,10 @@ from flask import Flask, request, escape
 from classes.tree import Tree
 from classes.reports import Reports
 
+# TODO
+# - Add dynamic number of leds as a query
+# - Improve show() function location
+
 # Create Flask instance
 app = Flask(__name__)
 
@@ -20,10 +24,11 @@ def add_report(student_id):
 def update_tree(class_id):
     class_id = escape(class_id)
     try:
-        tree = Tree(class_id)
+        n_leds = int(request.args["n_leds"])
+        tree = Tree(class_id, n_leds)
     except:
-        print("id is not valid")
-        return "ERROR: id is not valid"
+        print("id or query are not valid")
+        return "ERROR: id or query are not valid"
 
     lights = tree.update()
     if len(lights) > 0:
