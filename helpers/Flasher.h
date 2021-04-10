@@ -126,7 +126,6 @@ class Flasher {
         void setRGB(int R, int G, int B) {
 
             *led = CRGB(R, G, B);
-            FastLED.show();
 
         }
 

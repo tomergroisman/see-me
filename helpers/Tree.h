@@ -33,7 +33,9 @@ class Tree {
                 yield();
 
             }
+            FastLED.show();
 
+            // Check for initiated update
             checkUpdateRequest();
 
             // Update tree colors payload list
@@ -65,7 +67,7 @@ class Tree {
                     
                 }
 
-                // If the LED is on
+                // If a LED is on
                 else {
 
                     // Turn the LED to destroy state
