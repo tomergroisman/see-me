@@ -31,3 +31,7 @@ def update_tree(class_id):
         return f"{class_id} {','.join(str(light) for light in lights)}"
     else:
         return class_id + " "
+
+@app.route('/connection', methods=['GET'])
+def check_connection():
+    return "True"
