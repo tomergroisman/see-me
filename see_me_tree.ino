@@ -8,10 +8,10 @@
 /************** Definitions **************/
 
 #define MSG_BUFFER_SIZE 1024
-#define NUM_LEDS  10
-#define buttonPin D6
+#define NUM_LEDS 10
+#define buttonPin D5
 #define strand WS2812B
-#define strandPin 5
+#define strandPin 6
 #define colorMode GRB
 
 /*********** Wifi Configuration **********/
@@ -72,7 +72,7 @@ void setup() {
   }
 
   randomSeed(analogRead(0) ^ analogRead(1) ^ analogRead(2));
-  FastLED.setBrightness(random(30, 100));
+  FastLED.setBrightness(50);
   
 }
 
