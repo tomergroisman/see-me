@@ -2,10 +2,6 @@ from flask import Flask, request, escape
 from classes.tree import Tree
 from classes.reports import Reports
 
-# TODO
-# - Add dynamic number of leds as a query
-# - Improve show() function location
-
 # Create Flask instance
 app = Flask(__name__)
 
