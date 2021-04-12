@@ -7,8 +7,9 @@
 
 /************** Definitions **************/
 
+#define NUM_LEDS 42
+
 #define MSG_BUFFER_SIZE 1024
-#define NUM_LEDS 10
 #define buttonPin D5
 #define strand WS2812B
 #define strandPin 6
@@ -17,8 +18,8 @@
 /*********** Wifi Configuration **********/
 
 // Update these with values suitable for your network.
-const char* ssid = "Tomer&aya";
-const char* password = "1702196060";
+const char* ssid = "IDC-Wireless";
+const char* password = "";
 
 /******** Web Server Configuration *******/
 
@@ -46,9 +47,9 @@ int colors[MSG_BUFFER_SIZE];
 
 /********* Import Helper Classes *********/
 
-#include "helpers/Connections.h"
-#include "helpers/Tree.h"
-#include "helpers/Flasher.h"
+#include "../helpers/Connections.h"
+#include "../helpers/Tree.h"
+#include "../helpers/Flasher.h"
 Flasher flashers[NUM_LEDS];
 CRGB leds[NUM_LEDS];
 Tree tree(buttonPin, colors, flashers);
@@ -76,7 +77,7 @@ void setup() {
   
 }
 
-// Loop callback
+// Loop callbackd
 void loop() {
 
 

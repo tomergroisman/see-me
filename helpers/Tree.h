@@ -94,7 +94,9 @@ class Tree {
                 Serial.println();
                 Serial.println("PULLING UPDATE");
                 lastClick = millis();
-                get(host, "/update/" + String(CLASS_ID), "UPDATE");
+                String slug = "/update/" + String(CLASS_ID);
+                String query = "?n_leds=" + String(NUM_LEDS);
+                get(host, slug + query, "UPDATE");
 
             }
 
