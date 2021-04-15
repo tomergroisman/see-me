@@ -2,7 +2,7 @@ from database.database import Database as db
 from database.models import Class
 
 class Register:
-    def add(collection, document, parse_ref):
+    def add(collection, document, parse_ref=None):
         """
         Add a new document to collection
 

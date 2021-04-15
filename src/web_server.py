@@ -22,15 +22,29 @@ def add_report(student_id):
     print("ADD a report from student id " + student_id)
     return report_id
 
+# Register new school route
+@app.route('/school', methods=['POST'])
+def add_class():
+    _school = request.get_json()
+    school_doc = Register.add("Schools", _school)
+    print("REGISTERED new class: " + school_doc.id)
+    return school_doc
+
+# Register new class route
 @app.route('/class', methods=['POST'])
 def add_class():
     _class = request.get_json()
-    class_doc = Register.add("Classes", _class, {
-        'name': 'school_ref',
-        'collection': 'Schools'
-    })
-    print("REGISTERED new class: " + class_doc)
+    class_doc = Register.add("Classes", _class)
+    print("REGISTERED new class: " + class_doc.id)
     return class_doc
+
+# Register new student route
+@app.route('/student', methods=['POST'])
+def add_class():
+    _student = request.get_json()
+    student_doc = Register.add("Students", _student)
+    print("REGISTERED new student: " + student_doc.id)
+    return student_doc
 
 # TODO: (Dynamic n_leds)
 # - Set n_leds to the class document every time get n_leds query
