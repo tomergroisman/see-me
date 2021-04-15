@@ -19,6 +19,7 @@ class Class(Document):
     grade = IntField(min_value=1, max_value=12)
     class_number = IntField(min_value=1)
     school_ref = ReferenceField(School)
+    n_leds = IntField(min_value=0)
 
     # Metadata
     meta = {
