@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv, find_dotenv
 from mongoengine import connect, disconnect
 from database.models import School, Class, Student, Report
 
@@ -9,6 +10,8 @@ collections = {
     "Students": Student,
     "Reports": Report,
 }
+
+load_dotenv(find_dotenv())
 
 class Database:
     def add(collection, obj):
@@ -62,7 +65,7 @@ class Database:
         """
         Connect to the database
         """
-        conn = connect(
+        connect(
             host="localhost",
             port=27017,
             username=os.getenv("MONGO_USERNAME"),
