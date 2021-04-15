@@ -22,6 +22,16 @@ def add_report(student_id):
     print("ADD a report from student id " + student_id)
     return report_id
 
+@app.route('/class', methods=['POST'])
+def add_class():
+    _class = request.get_json()
+    class_doc = Register.add("Classes", _class, {
+        'name': 'school_ref',
+        'collection': 'Schools'
+    })
+    print("REGISTERED new class: " + class_doc)
+    return class_doc
+
 # TODO: (Dynamic n_leds)
 # - Set n_leds to the class document every time get n_leds query
 # - Omit n_leds from Tree conctructor (and use the doc field instead)
@@ -58,4 +68,4 @@ if __name__ == '__main__':
     server = Process(target=app.run, kwargs={'host': '0.0.0.0', 'port': '3000', 'use_reloader': False})
     trigger = Process(target=push_data.push_update_trigger)
     server.start()
-    trigger.start()
+    # trigger.start()

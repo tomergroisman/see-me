@@ -24,16 +24,19 @@ else:
         schools[i] = Database.add("Schools", school)
 
     # Add seed class
+    n_leds = 42
     classes = [
         {
             "grade": 4,
             "class_number": 1,
-            "school_ref": Database.get("Schools", { "name": "שיזף" })[0]
+            "school_ref": Database.get("Schools", { "name": "שיזף" })[0],
+            "n_leds": n_leds
         },
         {
             "grade": 4,
             "class_number": 2,
-            "school_ref": Database.get("Schools", { "name": "שיזף" })[0]
+            "school_ref": Database.get("Schools", { "name": "שיזף" })[0],
+            "n_leds": n_leds
         },
     ]
     for i, classroom in enumerate(classes):
