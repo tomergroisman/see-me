@@ -14,7 +14,7 @@ report_color_mapper = {
 colors = {
     "yellow":
     [
-        0xcccc00, 0xe6e600, 0xffff00, 0xffff1a, 0xffff33, 0xffff4d
+        0x00ff00
     ],
     "white":
     [
@@ -22,7 +22,7 @@ colors = {
     ],
     "blue":
     [
-        0x0052cc, 0x005ce6, 0x0066ff, 0x1a75ff, 0x3385ff, 0x4d94ff
+        0xff0000
     ]
 }
 

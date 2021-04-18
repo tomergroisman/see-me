@@ -1,5 +1,5 @@
 from database.database import Database as db
-from web_server import update_tree
+from routes.update import update_tree
 
 # Push update trigger listener
 def push_update_trigger():
