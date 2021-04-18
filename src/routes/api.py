@@ -1,3 +1,4 @@
+import json
 from flask import Blueprint, request
 from classes.register import Register
 from database.database import Database as db

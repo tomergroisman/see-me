@@ -1,9 +1,10 @@
+import mongoengine_goodjson as gj
 from mongoengine import Document, UUIDField, IntField, StringField, ReferenceField, BooleanField, DateTimeField
 from datetime import datetime, timezone
 import pytz
 
 # School model
-class School(Document):
+class School(gj.Document):
     name = StringField()
     city = StringField()
     address = StringField()
@@ -15,7 +16,7 @@ class School(Document):
 
 
 # Class model
-class Class(Document):
+class Class(gj.Document):
     grade = IntField(min_value=1, max_value=12)
     class_number = IntField(min_value=1)
     school_ref = ReferenceField(School)
@@ -28,7 +29,7 @@ class Class(Document):
 
 
 # Student model
-class Student(Document):
+class Student(gj.Document):
     class_ref = ReferenceField(Class)
 
     # Metadata
@@ -37,7 +38,7 @@ class Student(Document):
     }
     
 # Report model
-class Report(Document):
+class Report(gj.Document):
     student_ref = ReferenceField(Student)
     class_ref = ReferenceField(Class)
     report = IntField(min_value=-5, max_value=5)
