@@ -12,7 +12,7 @@ def school_route():
         db.connect()
         docs = db.get('Schools', {})
         db.disconnect()
-        return jsonify([doc.to_json() for doc in docs])
+        return docs.to_json()
         
     if request.method == 'POST':
         _school = request.get_json()
@@ -27,7 +27,7 @@ def class_route():
         db.connect()
         docs = db.get('Classes', {})
         db.disconnect()
-        return jsonify([doc.to_json() for doc in docs])
+        return docs.to_json()
 
     if request.method == 'POST':
         _class = request.get_json()
@@ -42,7 +42,7 @@ def student_route():
         db.connect()
         docs = db.get('Students', {})
         db.disconnect()
-        return jsonify([doc.to_json() for doc in docs])
+        return docs.to_json()
 
     if request.method == 'POST':
         _student = request.get_json()
