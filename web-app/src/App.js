@@ -16,7 +16,8 @@ function App() {
 
   async function handleSubmit() {
     setSubmitted(true);
-    await axios.post(process.env.REACT_APP_API_URL, { report: reportValue });
+    const url = 'http://18.133.245.223:3000/report/6047c75db313be4c8829b7d7'
+    await axios.post(url, { report: reportValue });
   }
 
   const ThankYouMessage = () => (
