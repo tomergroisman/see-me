@@ -47,9 +47,9 @@ int colors[MSG_BUFFER_SIZE];
 
 /********* Import Helper Classes *********/
 
-#include "../helpers/Connections.h"
-#include "../helpers/Tree.h"
-#include "../helpers/Flasher.h"
+#include "./helpers/Connections.h"
+#include "./helpers/Tree.h"
+#include "./helpers/Flasher.h"
 Flasher flashers[NUM_LEDS];
 CRGB leds[NUM_LEDS];
 Tree tree(buttonPin, colors, flashers);
