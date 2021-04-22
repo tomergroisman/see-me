@@ -18,19 +18,12 @@
 /*********** Wifi Configuration **********/
 
 // Update these with values suitable for your network.
-const char* ssid = "IDC-Wireless";
-const char* password = "";
+const char* ssid = "Tomer&aya";
+const char* password = "1702196060";
 
 /******** Web Server Configuration *******/
 
 const String host = "18.133.245.223:3000";
-
-/*********** MQTT Configuration **********/
-
-const char* broker = "18.133.245.223";
-const char MQTT_CLIENTID[] = __DATE__ __TIME__;
-char updateTopic[] = "see_me/update";
-char previewTopic[] = "see_me/preview";
 
 /************ Set Connections ************/
 
@@ -62,7 +55,6 @@ void setup() {
   Serial.begin(115200);
   
   connectToWifi();
-  mqttConnect(false);
   colors[0] = -1;
 
   FastLED.addLeds<strand, strandPin, colorMode>(leds, NUM_LEDS);
@@ -80,8 +72,6 @@ void setup() {
 // Loop callbackd
 void loop() {
 
-
-  mqttLoop();
   tree.update();
   
 }
