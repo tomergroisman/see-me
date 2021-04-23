@@ -11,7 +11,7 @@
 
 #define minDelta 500
 #define maxDelta 3000
-#define brightnessInterval 50
+#define brightnessInterval 1500
 
 class Flasher {
     
@@ -21,8 +21,9 @@ class Flasher {
         CRGB* led;
         unsigned long startTime;
         long delta;
-        int brightness;
         StateMachine stateMachine;
+        Color dimColor;
+        bool toFullBrightness = true;
   
     public:
 
@@ -60,7 +61,7 @@ class Flasher {
 
                 case stateMachine.OFF: {
 
-                    setRGB(Color(0, 0, 0));
+                    setRGB(Color());
                     break;
 
                 }
@@ -68,9 +69,9 @@ class Flasher {
                 case stateMachine.TURN_ON: {
 
                     int diff = millis() - startTime;
+                    float prec = float(diff) / float(delta);
                     if (diff <= delta) {
 
-                        float prec = float(diff) / float(delta);
                         setRGB(color.multiply(prec));
 
                     }
@@ -86,6 +87,26 @@ class Flasher {
 
                 case stateMachine.ON: {
 
+                    int diff = millis() - startTime;
+                    if (diff <= delta) {
+                        
+                        float prec = float(diff) / float(delta);
+                        if (toFullBrightness) {
+
+                            setRGB(color.substract(dimColor.multiply(1 - prec)));
+
+                        } else {
+
+                            setRGB(color.substract(dimColor.multiply(prec)));
+
+                        }
+
+                    }
+                    else {
+
+                        setForStay();
+
+                    }
                     break;
 
                 }
@@ -93,15 +114,15 @@ class Flasher {
                 case stateMachine.TURN_OFF: {
 
                     int diff = millis() - startTime;
+                    float prec = float(diff) / float(delta);
                     if (diff <= delta) {
 
-                        float prec = float(diff) / float(delta);
                         setRGB(color.substract(color.multiply(prec)));
 
                     }
                     else {
 
-                        setRGB(Color(0, 0, 0));
+                        setRGB(Color());
                         stateMachine.transitionTo(stateMachine.OFF);
 
                     }
@@ -125,6 +146,7 @@ class Flasher {
         void turnOff() {
             
             setForLunch();
+            color = Color(led->r, led->g, led->b);
             stateMachine.transitionTo(stateMachine.TURN_OFF);
 
         }
@@ -141,7 +163,12 @@ class Flasher {
         void setForStay() {
 
             startTime = millis();
-            brightness = random(1, 20);
+            delta = brightnessInterval;
+            int brightness = random(50, 200);
+            toFullBrightness = !toFullBrightness;
+            if (!toFullBrightness) {
+                dimColor = color.substract(brightness);
+            }
 
         }
 
