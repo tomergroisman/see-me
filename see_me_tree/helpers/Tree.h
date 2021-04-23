@@ -114,9 +114,6 @@ class Tree {
 
                 if (flashers[i].getState() != state) {
 
-                    Serial.print(flashers[i].getState());
-                    Serial.print(" != ");
-                    Serial.println(state);
                     return false;
 
                 }

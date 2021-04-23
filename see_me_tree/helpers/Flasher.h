@@ -5,19 +5,23 @@
 #include "StateMachine.h"
 #endif
 
+#ifndef  COLOR_H
+#include "Color.h"
+#endif
+
 #define minDelta 500
 #define maxDelta 3000
+#define brightnessInterval 50
 
 class Flasher {
     
     private:
 
-        int r;
-        int g;
-        int b;
+        Color color;
         CRGB* led;
         unsigned long startTime;
         long delta;
+        int brightness;
         StateMachine stateMachine;
   
     public:
@@ -25,9 +29,7 @@ class Flasher {
         // Constructor
         Flasher() {
 
-            r = 0;
-            g = 0;
-            b = 0;
+            color = Color();
             stateMachine = StateMachine();
 
             randomSeed(analogRead(0) ^ analogRead(1) ^ analogRead(2));
@@ -44,11 +46,9 @@ class Flasher {
         }
 
         // Set Led color
-        void setColor(int _r, int _g, int _b) {
+        void setColor(int r, int g, int b) {
 
-            r = _r;
-            g = _g;
-            b = _b;
+            color = Color(r, g, b);
             stateMachine.transitionTo(stateMachine.OFF);
 
         }
@@ -60,7 +60,7 @@ class Flasher {
 
                 case stateMachine.OFF: {
 
-                    setRGB(0, 0, 0);
+                    setRGB(Color(0, 0, 0));
                     break;
 
                 }
@@ -71,15 +71,17 @@ class Flasher {
                     if (diff <= delta) {
 
                         float prec = float(diff) / float(delta);
-                        setRGB(prec * r, prec * g, prec * b);
+                        setRGB(color.multiply(prec));
 
                     }
                     else {
 
-                        setRGB(r, g, b);
+                        setRGB(color);
+                        setForStay();
                         stateMachine.transitionTo(stateMachine.ON);
 
                     }
+                    break;
                 }
 
                 case stateMachine.ON: {
@@ -94,12 +96,12 @@ class Flasher {
                     if (diff <= delta) {
 
                         float prec = float(diff) / float(delta);
-                        setRGB(r - prec * r, g - prec * g, b - prec * b);
+                        setRGB(color.substract(color.multiply(prec)));
 
                     }
                     else {
 
-                        setRGB(0, 0, 0);
+                        setRGB(Color(0, 0, 0));
                         stateMachine.transitionTo(stateMachine.OFF);
 
                     }
@@ -135,10 +137,18 @@ class Flasher {
 
         }
 
-        // Set LED to RGB color
-        void setRGB(int R, int G, int B) {
+        // Set all relevant variables for on state
+        void setForStay() {
 
-            *led = CRGB(R, G, B);
+            startTime = millis();
+            brightness = random(1, 20);
+
+        }
+
+        // Set LED to RGB color
+        void setRGB(Color newColor) {
+
+            *led = CRGB(newColor.r(), newColor.g(), newColor.b());
 
         }
 

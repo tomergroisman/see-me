@@ -69,7 +69,7 @@ void setup() {
   
 }
 
-// Loop callbackd
+// Loop callback
 void loop() {
 
   tree.update();
