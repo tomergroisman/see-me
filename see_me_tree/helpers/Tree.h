@@ -1,6 +1,12 @@
-#ifndef  FLASHER_H  
+#ifndef  FLASHER_H
 #include "Flasher.h"
 #endif
+
+#ifndef  STATE_MACHINE_H
+#include "StateMachine.h"
+#endif
+
+StateMachine stateMachine;
 
 class Tree {
 
@@ -40,10 +46,9 @@ class Tree {
 
             // Update tree colors payload list
             if (colors[0] != -1) {
-                
 
                 // If the LED if off
-                if (all(0)) {
+                if (all(stateMachine.OFF)) {
 
                     Serial.println("updating...");
                     for (int i = 0; i < NUM_LEDS; i++) {
@@ -58,7 +63,7 @@ class Tree {
                         
                         // Flaser led
                         flashers[i].setColor(colors[i] >> 16, (colors[i] & 0x00ff00) >> 8, colors[i] & 0x0000ff);
-                        flashers[i].start();
+                        flashers[i].turnOn();
                         yield();
 
                     }
@@ -70,12 +75,12 @@ class Tree {
                 // If a LED is on
                 else {
 
-                    // Turn the LED to destroy state
-                    if (!one(3)) {
+                    // Turn the LED off
+                    if (!one(stateMachine.TURN_OFF)) {
 
                         for (int i = 0; i < NUM_LEDS; i++) {
 
-                            flashers[i].destroy();
+                            flashers[i].turnOff();
                             yield();
 
                         }
@@ -109,6 +114,9 @@ class Tree {
 
                 if (flashers[i].getState() != state) {
 
+                    Serial.print(flashers[i].getState());
+                    Serial.print(" != ");
+                    Serial.println(state);
                     return false;
 
                 }

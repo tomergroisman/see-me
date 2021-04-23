@@ -1,6 +1,10 @@
 #ifndef FLASHER_H
 #define FLASHER_H
 
+#ifndef  STATE_MACHINE_H
+#include "StateMachine.h"
+#endif
+
 #define minDelta 500
 #define maxDelta 3000
 
@@ -12,9 +16,9 @@ class Flasher {
         int g;
         int b;
         CRGB* led;
-        int state;      // 0 - off, 1 - start, 2 - standby on 3 - destroy
         unsigned long startTime;
         long delta;
+        StateMachine stateMachine;
   
     public:
 
@@ -24,11 +28,13 @@ class Flasher {
             r = 0;
             g = 0;
             b = 0;
-            state = 0;
+            stateMachine = StateMachine();
 
             randomSeed(analogRead(0) ^ analogRead(1) ^ analogRead(2));
  
         }
+
+
 
         // Set a CRGB Led
         void setLed(CRGB* _led) {
@@ -43,22 +49,23 @@ class Flasher {
             r = _r;
             g = _g;
             b = _b;
-            state = 0;
+            stateMachine.transitionTo(stateMachine.OFF);
 
         }
 
         // Flasher update function
         void update() {
-            switch (state) {
 
-                case 0: {
+            switch (stateMachine.getCurrentState()) {
+
+                case stateMachine.OFF: {
 
                     setRGB(0, 0, 0);
                     break;
 
                 }
-
-                case 1: {
+                
+                case stateMachine.TURN_ON: {
 
                     int diff = millis() - startTime;
                     if (diff <= delta) {
@@ -70,18 +77,18 @@ class Flasher {
                     else {
 
                         setRGB(r, g, b);
-                        state = 2;
+                        stateMachine.transitionTo(stateMachine.ON);
 
                     }
                 }
 
-                case 2: {
+                case stateMachine.ON: {
 
                     break;
 
                 }
 
-                case 3: {
+                case stateMachine.TURN_OFF: {
 
                     int diff = millis() - startTime;
                     if (diff <= delta) {
@@ -93,7 +100,7 @@ class Flasher {
                     else {
 
                         setRGB(0, 0, 0);
-                        state = 0;
+                        stateMachine.transitionTo(stateMachine.OFF);
 
                     }
                     break;
@@ -104,21 +111,27 @@ class Flasher {
 
         }
 
-        // Turn off LED
-        void start() {
+        // Turn on LED
+        void turnOn() {
 
-            startTime = millis();
-            delta = random(minDelta, maxDelta);
-            state = 1;
+            setForLunch();
+            stateMachine.transitionTo(stateMachine.TURN_ON);
 
         }
 
         // Turn off LED
-        void destroy() {
+        void turnOff() {
             
+            setForLunch();
+            stateMachine.transitionTo(stateMachine.TURN_OFF);
+
+        }
+
+        // Set all relevant variables for on / off change transition
+        void setForLunch() {
+
             startTime = millis();
             delta = random(minDelta, maxDelta);
-            state = 3;
 
         }
 
@@ -131,7 +144,7 @@ class Flasher {
 
         // Get state of a LED
         int getState() {
-            return state;
+            return stateMachine.getCurrentState();
         }
 
 };
