@@ -1,7 +1,6 @@
 from flask import Flask, request, escape
 from multiprocessing import Process, Pool
 from routes import api, report, update
-import helpers.push_data as push_data
 
 # Create Flask instance
 app = Flask(__name__)
@@ -28,6 +27,8 @@ def check_connection():
 
 
 if __name__ == '__main__':
+    # import helpers.push_data as push_data
+    
     # server = Process(target=app.run, kwargs={'host': '0.0.0.0', 'port': '3000', 'use_reloader': False})
     # trigger = Process(target=push_data.push_update_trigger)
     # server.start()

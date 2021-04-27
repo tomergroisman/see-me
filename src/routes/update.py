@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, escape
 from classes.tree import Tree
 
 DEFAULT_NUM_LEDS = 42

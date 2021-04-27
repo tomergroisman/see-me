@@ -4,23 +4,26 @@ import math
 MAX_VAL = 2
 
 report_color_mapper = {
-    "-2": "blue",
-    "-1": "blue",
-    "0": "white",
-    "1": "yellow",
-    "2": "yellow",
+    "2": "GREEN",
+    "1": "LIGHT_GREEN",
+    "-1": "LIGHT_RED",
+    "-2": "RED",
 }
 
 colors = {
-    "yellow":
+    report_color_mapper["2"]:
     [
         0x00ff00
     ],
-    "white":
+    report_color_mapper["1"]:
     [
-        0xffffff
+        0x44ff44
     ],
-    "blue":
+    report_color_mapper["-1"]:
+    [
+        0xff4444
+    ],
+    report_color_mapper["-2"]:
     [
         0xff0000
     ]

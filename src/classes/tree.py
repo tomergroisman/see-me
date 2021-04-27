@@ -1,7 +1,7 @@
 import numpy as np
 from database.database import Database as db
 from classes.reports import Reports
-from helpers.colors import Colors
+from utils.colors import Colors
 
 class Tree:
     """
