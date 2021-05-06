@@ -55,24 +55,10 @@ function App() {
     <>
       <h1> היי!👋 </h1>
       <h1 style={{ marginBottom: "60px" }}> מה ברצונך לשתף?</h1>
-      {/* <RubberSlider width={250} value={reportValue} onChange={setReportValue} /> */}
       <ValuesSlider
         reportValue={reportValue}
         setReportValue={setReportValue}
-        // onInput={(e) => setReportValue(e.target.value)}
       />
-      {/* 
-      <div className="slidecontainer">
-        <input
-          dir="ltr"
-          type="range"
-          min="-2"
-          max="2"
-          value={reportValue}
-          className="slider"
-          onInput={(e) => setReportValue(e.target.value)}
-        />
-      </div> */}
 
       <div style={{ fontSize: "64px", marginBottom: "5vh" }}>
         {reportValue !== 0 ? (

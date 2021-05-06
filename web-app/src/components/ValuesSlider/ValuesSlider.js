@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
-import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,29 +10,6 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
   },
 }));
-
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
-  const emojisDic = {
-    "-2": "😥",
-    "-1": "😔",
-    0: "😐",
-    1: "😊",
-    2: "😄",
-  };
-
-  return (
-    <Tooltip open={open} enterTouchDelay={500} placement="top" title={'dd'}>
-      {/* {children} */}
-    </Tooltip>
-  );
-}
-
-ValueLabelComponent.propTypes = {
-  children: PropTypes.element.isRequired,
-  open: PropTypes.bool.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 const PrettoSlider = withStyles({
   root: {
@@ -69,7 +44,6 @@ const PrettoSlider = withStyles({
 export default function ValuesSlider({ setReportValue, reportValue }) {
   const classes = useStyles();
   const [color, setColor] = React.useState(mapColor(reportValue));
-  console.log(color)
 
   function handleOnChange(value) {
     setReportValue(value);
