@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
@@ -67,24 +68,32 @@ const PrettoSlider = withStyles({
 
 export default function ValuesSlider({ setReportValue, reportValue }) {
   const classes = useStyles();
+  const [color, setColor] = React.useState(mapColor(reportValue));
+  console.log(color)
 
   function handleOnChange(value) {
     setReportValue(value);
   }
 
-  const slideColor = reportValue > 0 ? "green" : reportValue < 0 ?"red":'blue';
+  function mapColor(value) {
+    return value > 0 ? "green" : value < 0 ?"red" : 'blue'
+  }
 
   return (
     <div className={classes.root}>
       <PrettoSlider
-        style={{ color: slideColor }}
+        style={{ color }}
         valueLabelDisplay="auto"
         aria-label="pretto slider"
         defaultValue={reportValue}
         min={-2}
         max={2}
-        onChange={(_, value) => {
+        step={1}
+        onChangeCommitted={(_, value) => {
           handleOnChange(value);
+        }}
+        onChange={(_, value) => {
+          setColor(mapColor(value));
         }}
       />
     </div>
