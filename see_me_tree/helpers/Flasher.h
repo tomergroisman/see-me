@@ -164,7 +164,7 @@ class Flasher {
 
             startTime = millis();
             delta = brightnessInterval;
-            int brightness = random(50, 200);
+            int brightness = random(50, 150);
             toFullBrightness = !toFullBrightness;
             if (!toFullBrightness) {
                 dimColor = color.substract(brightness);
