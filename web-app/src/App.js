@@ -1,18 +1,15 @@
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 
-import Confetti from "react-confetti";
 import ValuesSlider from "./components/ValuesSlider/ValuesSlider";
-import Quote from "./components/Quote/Quote";
+import ThankYouMessage from "./components/ThankYouMessage/ThankYouMessage";
 
 function App() {
   const [reportValue, setReportValue] = useState(0);
-  console.log("🚀 ~ file: App.js ~ line 12 ~ App ~ reportValue", reportValue)
   const [submitted, setSubmitted] = useState(false);
-
-  const { height, width } = window.screen;
+  const [message, setMessage] = useState("");
 
   const emojisDic = {
     "-2": "😥",
@@ -25,42 +22,33 @@ function App() {
   async function handleSubmit() {
     setSubmitted(true);
     const url = "http://18.133.245.223:3000/report/6047c75db313be4c8829b7d7";
-    await axios.post(url, { report: reportValue });
+    const payload = { report: reportValue, message };
+
+    await axios.post(url, payload);
   }
 
   function handleBack() {
     setSubmitted(false);
     setReportValue(0);
+    setMessage("")
   }
 
-  const ThankYouMessage = () => (
-    <div className="thankYouContainer">
-      <Confetti width={width} height={height} opacity={0.6} />
-      <h1> תודה רבה על הדיווח! </h1>
-      <div style={{ fontSize: "64px" }}>🙏</div>{" "}
-      <Button
-        disabled={reportValue === 0}
-        variant="contained"
-        color="secondary"
-        style={{ margin: "10vh 0 15vh 0", fontSize: "20px" }}
-        onClick={handleBack}
-      >
-        חזרה
-      </Button>
-      <Quote reportValue={reportValue} />
-    </div>
-  );
+  const CHARACTER_LIMIT = 200;
+
+  function handleTyping(event) {
+    setMessage(event.target.value);
+  }
 
   const ReportForm = () => (
     <>
-      <h1> היי!👋 </h1>
-      <h1 style={{ marginBottom: "60px" }}> מה ברצונך לשתף?</h1>
-      <ValuesSlider
-        reportValue={reportValue}
-        setReportValue={setReportValue}
-      />
+      <h1>
+        היי!👋
+        <br />
+        מה ברצונך לשתף?
+      </h1>
+      <ValuesSlider reportValue={reportValue} setReportValue={setReportValue} />
 
-      <div style={{ fontSize: "64px", marginBottom: "5vh" }}>
+      <div style={{ fontSize: "32px", marginBottom: "5vh" }}>
         {reportValue !== 0 ? (
           emojisDic[reportValue]
         ) : (
@@ -70,6 +58,37 @@ function App() {
           />
         )}
       </div>
+      {/* <h4 style={{ marginBottom: "0" }}> 
+      ניתן גם להוסיף כמה מילים..
+      </h4> */}
+
+      {/* <TextField
+        id="outlined-multiline-static"
+        label="הודעה"
+        multiline
+        rows={4}
+        defaultValue="ניתן גם להוסיף כמה מילים.."
+        variant="outlined"
+        style={{ width: "90%", direction: "rtl" }}
+        max
+        // dir="rtl"
+      /> */}
+
+      <TextField
+        label="ניתן גם להוסיף כמה מילים.."
+        inputProps={{
+          maxlength: CHARACTER_LIMIT,
+        }}
+        value={message}
+        helperText={`${message.length}/${CHARACTER_LIMIT}`}
+        onChange={(e) =>handleTyping(e)}
+        margin="normal"
+        style={{ width: "90%", direction: "rtl" }}
+        variant="outlined"
+        placeholder={""}
+        multiline
+        rows={3}
+      />
 
       <Button
         disabled={reportValue == 0}
@@ -91,7 +110,7 @@ function App() {
       dir="rtl"
       style={{ padding: "5%", paddingTop: "52px" }}
     >
-      <RenderedComponent />
+      <RenderedComponent reportValue={reportValue} handleBack={handleBack} />
     </div>
   );
 }
