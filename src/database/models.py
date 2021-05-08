@@ -42,6 +42,7 @@ class Report(gj.Document):
     student_ref = ReferenceField(Student)
     class_ref = ReferenceField(Class)
     report = IntField(min_value=-5, max_value=5)
+    message = StringField()
     new = BooleanField()
     time = DateTimeField(default=datetime.now(pytz.timezone('Asia/Jerusalem')))
 

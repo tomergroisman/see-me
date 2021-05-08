@@ -2,7 +2,7 @@ from database.database import Database as db
 from database.models import Report
 
 class Reports:
-    def add(student_id, report):
+    def add(student_id, report, message):
         """
         Add a report th the database
 
@@ -14,6 +14,7 @@ class Reports:
             "student_ref": student_ref,
             "class_ref": student_ref.class_ref,
             "report": report,
+            "message": message,
             "new": True
         })
         db.disconnect()
