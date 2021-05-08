@@ -7,7 +7,7 @@
 
 /************** Definitions **************/
 
-#define NUM_LEDS 42
+#define NUM_LEDS 50
 
 #define MSG_BUFFER_SIZE 1024
 #define buttonPin D5
@@ -18,8 +18,8 @@
 /*********** Wifi Configuration **********/
 
 // Update these with values suitable for your network.
-const char* ssid = "Tomer&aya";
-const char* password = "1702196060";
+const char* ssid = "IDC-Wireless";
+const char* password = "";
 
 /******** Web Server Configuration *******/
 
