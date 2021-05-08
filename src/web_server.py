@@ -27,12 +27,5 @@ def check_connection():
 
 
 if __name__ == '__main__':
-    # import helpers.push_data as push_data
-    
-    # server = Process(target=app.run, kwargs={'host': '0.0.0.0', 'port': '3000', 'use_reloader': False})
-    # trigger = Process(target=push_data.push_update_trigger)
-    # server.start()
-    # trigger.start()
-
     # Start with a debugger
     app.run(host='0.0.0.0', port=3000)
