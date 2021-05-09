@@ -3,9 +3,18 @@ import Confetti from "react-confetti";
 import Quote from "../Quote/Quote";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import Claps from "../../assets/claps.png";
 
 const ThankYouContainer = styled.div`
   margin-top: 6vh;
+`;
+
+const ClapsImage = styled.img`
+  height: 20vh;
+  margin-top: 10vh;
+`;
+const Text = styled.h1`
+  margin-top: 7vh;
 `;
 
 export default function ThankYouMessage({ reportValue, handleBack }) {
@@ -30,8 +39,8 @@ export default function ThankYouMessage({ reportValue, handleBack }) {
           numberOfPieces={50}
         />
       )}
-      <h1> תודה רבה על הדיווח! </h1>
-      <div style={{ fontSize: "64px" }}>🙏</div>{" "}
+      <ClapsImage src={Claps} />
+      <Text> תודה רבה על הדיווח! </Text>
       <Button
         disabled={reportValue === 0}
         variant="contained"
