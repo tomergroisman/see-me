@@ -9,16 +9,27 @@ class Register:
         @params:
             collection - collection name
             document - the new document to add
-            parse_ref - query to parse reference if reference are nedded, including reference name and collection
         @returns the saved document (dict)
         """
         db.connect()
-        parsed_document = document.copy()
-        if bool(parse_ref):
-            parsed_document[parse_ref['name']] = db.get(parse_ref['collection'], document[parse_ref['name']])[0]
-        doc = db.add(collection, parsed_document)
+        doc = db.add(collection, document)
         db.disconnect()
         return doc
+
+    def append_class_to_school(school_ref, class_id):
+        """
+        Add a class to the school class list
+
+        @params:
+            school_id - the school id to update
+            class_id - the class id to append
+        @returns True if the update succeeded, False otherwise
+        """
+        db.connect()
+        class_list = db.get("Schools", { "id": school_ref })[0]["classes"]
+        db.update("Schools", { "id": school_ref }, { "classes": class_list + [class_id] })
+        db.disconnect()
+        return True
 
     """
     Get all the documents of a collection

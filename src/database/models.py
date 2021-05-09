@@ -1,32 +1,34 @@
 import mongoengine_goodjson as gj
-from mongoengine import Document, UUIDField, IntField, StringField, ReferenceField, BooleanField, DateTimeField
+from mongoengine import Document, UUIDField, IntField, StringField, ReferenceField, BooleanField, DateTimeField, ListField
 from datetime import datetime, timezone
 import pytz
 
-# School model
-class School(gj.Document):
-    name = StringField()
-    city = StringField()
-    address = StringField()
-
-    # Metadata
-    meta = {
-        'collection': 'Schools'
-    }
 
 
 # Class model
 class Class(gj.Document):
     grade = IntField(min_value=1, max_value=12)
     class_number = IntField(min_value=1)
-    school_ref = ReferenceField(School)
-    n_leds = IntField(min_value=0)
+    # school_ref = ReferenceField(School)
 
     # Metadata
     meta = {
         'collection': 'Classes'
     }
+    
+# School model
+# TODO:
+# - Add class list reference
+class School(gj.Document):
+    name = StringField()
+    city = StringField()
+    address = StringField()
+    classes = ListField(ReferenceField(Class))
 
+    # Metadata
+    meta = {
+        'collection': 'Schools'
+    }
 
 # Student model
 class Student(gj.Document):

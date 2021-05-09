@@ -38,7 +38,7 @@ class Database:
             query - A dict containing the search query
         """
         if "id" in query:
-            doc = collections[collection].objects(id=query["id"])[0]
+            doc = collections[collection].objects(id=query["id"])
         else:
             doc = collections[collection].objects(**query)
 
@@ -54,10 +54,14 @@ class Database:
             update - A dict containing the update keys and values
         """
         docs = Database.get(collection, query)
-        res = []
-        for doc in docs:
-            doc.update(**update)
-            res.append(doc)
+        if isinstance(docs, list):
+            res = []
+            for doc in docs:
+                doc.update(**update)
+                res.append(doc)
+        else:
+            docs.update(**update)
+            res = docs
 
         return res
 
