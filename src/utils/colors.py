@@ -17,11 +17,11 @@ colors = {
     ],
     report_color_mapper["1"]:
     [
-        0x44ff44
+        0x33ff33
     ],
     report_color_mapper["-1"]:
     [
-        0xff4444
+        0xff1a1a
     ],
     report_color_mapper["-2"]:
     [
@@ -60,8 +60,8 @@ class Colors:
             report_dict[color] += 1
         
         # Set ceil color
-        if "blue" in report_dict.keys():
-            ceil_color = "blue"
+        if "RED" in report_dict.keys():
+            ceil_color = "RED"
         else:
             keys = list(report_dict.keys())
             ceil_color = keys[random.randint(0, len(keys) - 1)]
