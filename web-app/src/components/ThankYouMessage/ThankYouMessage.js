@@ -1,13 +1,18 @@
 import { Button } from "@material-ui/core";
 import Confetti from "react-confetti";
 import Quote from "../Quote/Quote";
+import styled from "styled-components";
 
-export default function ThankYouMessage ({ reportValue, handleBack }) {
+const ThankYouContainer = styled.div`
+  margin-top: 6vh;
+`;
+
+export default function ThankYouMessage({ reportValue, handleBack }) {
   const { height, width } = window.screen;
   const positiveReport = reportValue > 0;
 
   return (
-    <div className="thankYouContainer">
+    <ThankYouContainer>
       {positiveReport && (
         <Confetti width={width} height={height} opacity={0.6} />
       )}
@@ -23,6 +28,6 @@ export default function ThankYouMessage ({ reportValue, handleBack }) {
         חזרה
       </Button>
       <Quote reportValue={reportValue} />
-    </div>
+    </ThankYouContainer>
   );
-};
+}
