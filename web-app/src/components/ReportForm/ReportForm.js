@@ -1,7 +1,8 @@
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 import ValuesSlider from "../ValuesSlider/ValuesSlider";
-import { submitReport } from "../service/calls";
+import { getSchool, submitReport } from "../../service/calls";
+import { mapValues } from "../../service/shared";
 
 const SliderContainer = styled.h1`
   fontsize: 32px;
@@ -26,12 +27,10 @@ export default function ReportForm({
   setSubmitted,
   setReportValue,
 }) {
-  
   function handleSubmit() {
     setSubmitted(true);
     submitReport(reportValue, message);
   }
-
   const CHARACTER_LIMIT = 100;
 
   return (
@@ -45,7 +44,7 @@ export default function ReportForm({
 
       <SliderContainer>
         {reportValue !== 0 ? (
-          emojisDic[reportValue]
+          emojisDic[mapValues(reportValue)]
         ) : (
           <TreeImage src="https://cdn.iconscout.com/icon/premium/png-512-thumb/tree-emoji-1587568-1346171.png" />
         )}
@@ -53,9 +52,7 @@ export default function ReportForm({
 
       <TextField
         label="ניתן גם להוסיף כמה מילים.."
-        inputProps={{
-          maxlength: CHARACTER_LIMIT,
-        }}
+        inputProps={{ maxlength: CHARACTER_LIMIT }}
         value={message}
         dir="rtl"
         helperText={`${message.length}/${CHARACTER_LIMIT}`}
