@@ -1,9 +1,9 @@
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
-import axios from "axios";
 import ValuesSlider from "../ValuesSlider/ValuesSlider";
+import { submitReport } from "../service/calls";
 
-const SliderContainer = styled.div`
+const SliderContainer = styled.h1`
   fontsize: 32px;
   marginbottom: 5vh;
 `;
@@ -19,16 +19,20 @@ const emojisDic = {
   2: "😄",
 };
 
-export default function ReportForm({ reportValue, handleTyping, message,setSubmitted,setReportValue }) {
-  async function handleSubmit() {
+export default function ReportForm({
+  reportValue,
+  handleTyping,
+  message,
+  setSubmitted,
+  setReportValue,
+}) {
+  
+  function handleSubmit() {
     setSubmitted(true);
-    const url = "http://18.133.245.223:3000/report/6047c75db313be4c8829b7d7";
-    const payload = { report: reportValue, message };
-
-    await axios.post(url, payload);
+    submitReport(reportValue, message);
   }
 
-  const CHARACTER_LIMIT = 200;
+  const CHARACTER_LIMIT = 100;
 
   return (
     <>
@@ -53,6 +57,7 @@ export default function ReportForm({ reportValue, handleTyping, message,setSubmi
           maxlength: CHARACTER_LIMIT,
         }}
         value={message}
+        dir="rtl"
         helperText={`${message.length}/${CHARACTER_LIMIT}`}
         onChange={(e) => handleTyping(e)}
         margin="normal"

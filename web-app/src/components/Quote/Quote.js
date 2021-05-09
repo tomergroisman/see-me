@@ -1,5 +1,4 @@
 export default function Quote({reportValue}) {
-  console.log("🚀 ~ file: Quote.js ~ line 2 ~ Quote ~ reportValue", reportValue)
   const quotesDic = {
     1: "איזה כיף שכיף",
     2: "איזה כיף שכיף",
