@@ -35,13 +35,7 @@ export default function ReportForm({
 
   return (
     <>
-      <h1>
-        היי!👋
-        <br />
-        מה ברצונך לשתף?
-      </h1>
-      <ValuesSlider reportValue={reportValue} setReportValue={setReportValue} />
-
+      <h1>היי, זה אני SeeMe !👋</h1>
       <SliderContainer>
         {reportValue !== 0 ? (
           emojisDic[mapValues(reportValue)]
@@ -50,11 +44,14 @@ export default function ReportForm({
         )}
       </SliderContainer>
 
+      <h2>מה ברצונך לשתף?</h2>
+
+      <ValuesSlider reportValue={reportValue} setReportValue={setReportValue} />
+
       <TextField
         label="ניתן גם להוסיף כמה מילים.."
         inputProps={{ maxlength: CHARACTER_LIMIT }}
         value={message}
-        dir="rtl"
         helperText={`${message.length}/${CHARACTER_LIMIT}`}
         onChange={(e) => handleTyping(e)}
         margin="normal"
@@ -64,15 +61,14 @@ export default function ReportForm({
         multiline
         rows={3}
       />
-
       <Button
         disabled={reportValue == 0}
         variant="contained"
         color="primary"
-        style={{ fontSize: "20px" }}
+        style={{ fontSize: "20px", borderRadius: "15px" }}
         onClick={handleSubmit}
       >
-        שליחה
+        ספר לי
       </Button>
     </>
   );
