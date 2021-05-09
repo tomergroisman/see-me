@@ -1,11 +1,6 @@
 body {
-  background-image: linear-gradient(
-    to bottom right,
-    rgb(230, 230, 119),
-    white,
-    white,
-    white,
-    blue
-  );
-  height: 100vh;
+  background-image: url("./assets/bgimage-seeme.png");
+  background-repeat: no-repeat;
+  background-position: center; 
+  background-size: cover; 
 }
