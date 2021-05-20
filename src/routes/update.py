@@ -8,7 +8,6 @@ update = Blueprint('update', __name__)
 # Update tree route
 @update.route('/update/<class_id>', methods=['GET'])
 def update_tree(class_id, use_n_leds=True):
-    class_id = escape(class_id)
     try:
         if use_n_leds:
             n_leds = int(request.args["n_leds"])
@@ -18,7 +17,7 @@ def update_tree(class_id, use_n_leds=True):
     except:
         print("id or query are not valid")
         return "ERROR: id or query are not valid"
-
+    
     lights = tree.update()
     if len(lights) > 0:
         print("UPDATE tree of id " + class_id)

@@ -6,8 +6,6 @@ report = Blueprint('report', __name__)
 # Add report route
 @report.route('/report/<student_id>', methods=['POST'])
 def add_report(student_id):
-    student_id = escape(student_id)
-
     report, message = None, None
     body = request.get_json()
     if "report" in body:

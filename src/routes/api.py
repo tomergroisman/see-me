@@ -37,7 +37,6 @@ def school_route(school_id):
     db.disconnect()
     doc = doc.to_mongo()
     doc["classes"] = classes
-    print(doc)
     return json_util.dumps(doc)
     # except:
     #     abort(400, 'Record not found')

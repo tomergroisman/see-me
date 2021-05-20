@@ -54,14 +54,10 @@ class Database:
             update - A dict containing the update keys and values
         """
         docs = Database.get(collection, query)
-        if isinstance(docs, list):
-            res = []
-            for doc in docs:
-                doc.update(**update)
-                res.append(doc)
-        else:
-            docs.update(**update)
-            res = docs
+        res = []
+        for doc in docs:
+            doc.update(**update)
+            res.append(doc)
 
         return res
 
