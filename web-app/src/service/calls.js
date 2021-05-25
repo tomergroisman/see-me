@@ -1,8 +1,11 @@
 import axios from "axios";
 import { mapValues } from "./shared";
 
+const HTTPSHANDLER = "https://vast-bayou-60975.herokuapp.com/";
+
 export async function submitReport(reportValue, message) {
-  const url = "http://18.133.245.223:3000/report/6047c75db313be4c8829b7d7";
+  const url =
+    HTTPSHANDLER + "http://18.133.245.223:3000/report/6047c75db313be4c8829b7d7";
   const mappedValue = mapValues(reportValue);
   const payload = { report: mappedValue, message };
 
