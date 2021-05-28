@@ -1,5 +1,6 @@
 from flask import Blueprint, request, escape
 from classes.tree import Tree
+from flask_cors import cross_origin
 
 DEFAULT_NUM_LEDS = 42
 
@@ -7,6 +8,7 @@ update = Blueprint('update', __name__)
 
 # Update tree route
 @update.route('/update/<class_id>', methods=['GET'])
+@cross_origin()
 def update_tree(class_id, use_n_leds=True):
     try:
         if use_n_leds:

@@ -1,17 +1,15 @@
 from flask import Flask, request, escape
+from flask_cors import CORS
 from multiprocessing import Process, Pool
 from routes import api, report, update
 
 # Create Flask instance
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Student ID = 6047c75db313be4c8829b7d7
 # Class ID = 6047c75db313be4c8829b7d5
-
-# TODO: (Dynamic n_leds)
-# - Set n_leds to the class document every time get n_leds query
-# - Omit n_leds from Tree conctructor (and use the doc field instead)
-# - Add a register school, class and student routes
 
 # api routes
 app.register_blueprint(api.api)
