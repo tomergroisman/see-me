@@ -7,6 +7,7 @@
 #endif
 
 StateMachine stateMachine;
+int counter = 1;
 
 class Tree {
 
@@ -69,6 +70,8 @@ class Tree {
                     }
 
                     colors[0] = -1;
+                    SoundSerial.write(counter);
+                    counter += 2;
                     
                 }
 

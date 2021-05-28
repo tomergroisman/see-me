@@ -4,10 +4,11 @@
 #include <ESP8266HTTPClient.h>
 #include <PubSubClient.h>
 #include <FastLED.h>
+#include <SoftwareSerial.h>
 
 /************** Definitions **************/
 
-#define NUM_LEDS 50
+#define NUM_LEDS 60
 
 #define MSG_BUFFER_SIZE 1024
 #define buttonPin D5
@@ -18,12 +19,18 @@
 /*********** Wifi Configuration **********/
 
 // Update these with values suitable for your network.
-const char* ssid = "IDC-Wireless";
-const char* password = "";
+//const char* ssid = "IDC-Wireless";
+//const char* password = "";
+const char* ssid = "SeeMe";
+const char* password = "12345678";
 
 /******** Web Server Configuration *******/
 
 const String host = "18.133.245.223:3000";
+
+/***** Second Serial Configuration /******/
+
+SoftwareSerial SoundSerial(13, 15);
 
 /************ Set Connections ************/
 
@@ -53,6 +60,7 @@ Tree tree(buttonPin, colors, flashers);
 void setup() {
   
   Serial.begin(115200);
+  SoundSerial.begin(115200);
   
   connectToWifi();
   colors[0] = -1;
