@@ -1,55 +1,11 @@
 import "./App.css";
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
 
-import ThankYouMessage from "./components/ThankYouMessage/ThankYouMessage";
-import Logo from "./components/Logo/Logo";
+export default function App() {
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
-import styled from "styled-components";
-import ReportForm from "./components/ReportForm/ReportForm";
-
-const AppDiv = styled.div`
-  direction: rtl;
-  text-align: center;
-  margin: auto;
-  font-family: "Calibri";
-
-  padding: 52px 5% 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-function App() {
-  const [reportValue, setReportValue] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
-  const [message, setMessage] = useState("");
-
-  function handleBack() {
-    setSubmitted(false);
-    setReportValue(0);
-    setMessage("");
-  }
-
-  function handleTyping(event) {
-    setMessage(event.target.value);
-  }
-
-  return (
-    <AppDiv>
-      <Logo />
-      {submitted ? (
-        <ThankYouMessage reportValue={reportValue} handleBack={handleBack} />
-      ) : (
-        <ReportForm
-          reportValue={reportValue}
-          handleTyping={handleTyping}
-          message={message}
-          setSubmitted={setSubmitted}
-          setReportValue={setReportValue}
-        />
-      )}
-    </AppDiv>
-  );
+  return token ? <Home /> : <Login setToken={setToken} />;
 }
-
-export default App;

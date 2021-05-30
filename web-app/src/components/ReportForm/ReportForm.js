@@ -4,14 +4,6 @@ import ValuesSlider from "../ValuesSlider/ValuesSlider";
 import { getSchool, submitReport } from "../../service/calls";
 import { mapValues } from "../../service/shared";
 
-const SliderContainer = styled.h1`
-  fontsize: 32px;
-  marginbottom: 5vh;
-`;
-const TreeImage = styled.img`
-  height: 22vh;
-`;
-
 const emojisDic = {
   "-2": "😥",
   "-1": "😔",
@@ -31,7 +23,7 @@ export default function ReportForm({
     setSubmitted(true);
     submitReport(reportValue, message);
   }
-  const CHARACTER_LIMIT = 100;
+  const CHARACTER_LIMIT = 200;
 
   return (
     <>
@@ -44,7 +36,7 @@ export default function ReportForm({
         )}
       </SliderContainer>
 
-      <h2>מה ברצונך לשתף?</h2>
+      <h2>מה שלומך היום?</h2>
 
       <ValuesSlider reportValue={reportValue} setReportValue={setReportValue} />
 
@@ -73,3 +65,13 @@ export default function ReportForm({
     </>
   );
 }
+
+const SliderContainer = styled.h1`
+  font-size: 62px;
+  margin-bottom: 5vh;
+  height: 20vh;
+  align-items: center;
+`;
+const TreeImage = styled.img`
+  height: 22vh;
+`;
