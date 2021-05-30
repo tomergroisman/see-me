@@ -13,8 +13,9 @@ const ClapsImage = styled.img`
   height: 20vh;
   margin-top: 10vh;
 `;
-const Text = styled.h1`
+const Text = styled.h2`
   margin-top: 7vh;
+  font-weight: 400;
 `;
 
 export default function ThankYouMessage({ reportValue, handleBack }) {
@@ -39,9 +40,11 @@ export default function ThankYouMessage({ reportValue, handleBack }) {
           numberOfPieces={50}
         />
       )}
+      <Quote reportValue={reportValue} />
+
       <ClapsImage src={Claps} />
-      <Text> תודה רבה על הדיווח! </Text>
-      <Button
+      <Text> תודה רבה על השיתוף! </Text>
+      {/* <Button
         disabled={reportValue === 0}
         variant="contained"
         color="secondary"
@@ -49,8 +52,7 @@ export default function ThankYouMessage({ reportValue, handleBack }) {
         onClick={handleBack}
       >
         חזרה
-      </Button>
-      <Quote reportValue={reportValue} />
+      </Button> */}
     </ThankYouContainer>
   );
 }

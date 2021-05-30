@@ -52,7 +52,7 @@ export default function ReportForm({
         label="ניתן גם להוסיף כמה מילים.."
         inputProps={{ maxlength: CHARACTER_LIMIT }}
         value={message}
-        helperText={`${message.length}/${CHARACTER_LIMIT}`}
+        // helperText={`${message.length}/${CHARACTER_LIMIT}`}
         onChange={(e) => handleTyping(e)}
         margin="normal"
         style={{ width: "90%" }}
@@ -68,7 +68,7 @@ export default function ReportForm({
         style={{ fontSize: "20px", borderRadius: "15px" }}
         onClick={handleSubmit}
       >
-        ספר לי
+שיתוף
       </Button>
     </>
   );

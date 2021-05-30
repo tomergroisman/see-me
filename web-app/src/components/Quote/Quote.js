@@ -7,7 +7,7 @@ export default function Quote({reportValue}) {
     "-2": "זה לא מגיע לך או לאף אחד אחר",
   };
   return (
-    <div style={{ fontSize: "24px", color: "lightgray" }}>
+    <div style={{ fontSize: "32px", color: "black" }}>
       &ldquo; {quotesDic[~~reportValue]} &rdquo;
     </div>
   );

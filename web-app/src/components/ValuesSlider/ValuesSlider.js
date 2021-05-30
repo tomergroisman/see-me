@@ -27,12 +27,12 @@ const PrettoSlider = withStyles({
   track: {
     height: 15,
     borderRadius: 8,
-    color: "red",
+    color: "green",
   },
   rail: {
     height: 15,
     borderRadius: 8,
-    color: "green",
+    color: "red",
     opacity: 1,
   },
 })(Slider);
