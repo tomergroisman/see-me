@@ -13,10 +13,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PrettoSlider = withStyles({
-  root: {
-    color: "yellow",
-    height: 15,
-  },
   thumb: {
     height: 30,
     width: 30,
@@ -28,17 +24,16 @@ const PrettoSlider = withStyles({
       boxShadow: "inherit",
     },
   },
-  active: {},
-  // valueLabel: {
-  //   left: "calc(-50% + 12px)",
-  // },
   track: {
     height: 15,
     borderRadius: 8,
+    color: "red",
   },
   rail: {
     height: 15,
     borderRadius: 8,
+    color: "green",
+    opacity: 1,
   },
 })(Slider);
 
