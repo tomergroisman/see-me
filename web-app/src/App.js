@@ -7,5 +7,6 @@ import Login from "./components/Login";
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  return token ? <Home /> : <Login setToken={setToken} />;
+  return <Home />;
+  // return !token ? <Home /> : <Login setToken={setToken} />;
 }
