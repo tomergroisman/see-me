@@ -1,11 +1,11 @@
 import "./App.css";
 import React, { useState } from "react";
 
-import ThankYouMessage from "./components/ThankYouMessage/ThankYouMessage";
-import Logo from "./components/Logo/Logo";
+import ThankYouMessage from "./components/ThankYouMessage";
+import Logo from "./components/Logo";
 
 import styled from "styled-components";
-import ReportForm from "./components/ReportForm/ReportForm";
+import ReportForm from "./components/ReportForm";
 
 const AppDiv = styled.div`
   direction: rtl;

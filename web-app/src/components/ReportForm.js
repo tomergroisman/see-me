@@ -1,16 +1,8 @@
 import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
-import ValuesSlider from "../ValuesSlider/ValuesSlider";
-import { getSchool, submitReport } from "../../service/calls";
-import { mapValues } from "../../service/shared";
-
-const SliderContainer = styled.h1`
-  fontsize: 32px;
-  marginbottom: 5vh;
-`;
-const TreeImage = styled.img`
-  height: 22vh;
-`;
+import ValuesSlider from "./ValuesSlider";
+import { getSchool, submitReport } from "../service/calls";
+import { mapValues } from "../service/shared";
 
 const emojisDic = {
   "-2": "😥",
@@ -53,6 +45,7 @@ export default function ReportForm({
         inputProps={{ maxlength: CHARACTER_LIMIT }}
         value={message}
         // helperText={`${message.length}/${CHARACTER_LIMIT}`}
+        helperText="* לא לשכוח כי השיתוף אנונימי"
         onChange={(e) => handleTyping(e)}
         margin="normal"
         style={{ width: "90%" }}
@@ -61,15 +54,31 @@ export default function ReportForm({
         multiline
         rows={3}
       />
-      <Button
+
+      <StyledButton
         disabled={reportValue == 0}
         variant="contained"
         color="primary"
-        style={{ fontSize: "20px", borderRadius: "15px" }}
         onClick={handleSubmit}
       >
-שיתוף
-      </Button>
+        שיתוף
+      </StyledButton>
     </>
   );
 }
+
+const StyledButton = styled(Button)`
+  font-size: 2vh;
+  border-radius: 15px;
+  width: 90%;
+  height: 46px;
+  margin-top: 5vh;
+`;
+const SliderContainer = styled.div`
+  font-size: 10vh;
+  margin-bottom: 5vh;
+  min-height: 10vh;
+`;
+const TreeImage = styled.img`
+  height: 15vh;
+`;
