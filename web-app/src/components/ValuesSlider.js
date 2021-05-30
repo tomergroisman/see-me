@@ -1,11 +1,11 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
-import { mapColor } from "../../service/shared";
+import { mapColor } from "../service/shared";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "90%",
+    width: "80%",
   },
   margin: {
     height: theme.spacing(3),
@@ -27,15 +27,41 @@ const PrettoSlider = withStyles({
   track: {
     height: 15,
     borderRadius: 8,
-    color: "red",
+    color: "transparent",
   },
   rail: {
     height: 15,
     borderRadius: 8,
-    color: "green",
+    background: "linear-gradient(to right, red, pink ,lightgreen,  green)",
     opacity: 1,
   },
+  mark:{
+    color:'transparent'
+  }
 })(Slider);
+
+const marks = [
+  {
+    value: -2,
+    label: "חוויה שלילית",
+  },
+  {
+    value: -1,
+    label: "",
+  },
+  {
+    value: 0,
+    label: "",
+  },
+  {
+    value: 1,
+    label: "",
+  },
+  {
+    value: 2,
+    label: "חוויה חיובית",
+  },
+];
 
 export default function ValuesSlider({ setReportValue, reportValue }) {
   const classes = useStyles();
@@ -48,13 +74,14 @@ export default function ValuesSlider({ setReportValue, reportValue }) {
   return (
     <div className={classes.root}>
       <PrettoSlider
-        style={{ color }}
+        marks={marks}
+        valueLabelDisplay="on"
         valueLabelDisplay="off"
-        aria-label="pretto slider"
+        aria-label="slider"
         defaultValue={reportValue}
         min={-2}
         max={2}
-        step={0.05}
+        step={1}
         onChangeCommitted={(_, value) => {
           handleOnChange(value);
         }}

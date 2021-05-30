@@ -1,4 +1,4 @@
-import logo from "../../assets/logo.png";
+import logo from "../assets/logo.png";
 import styled from 'styled-components'
 
 const Span = styled.span`
