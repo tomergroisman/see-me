@@ -42,9 +42,7 @@ export default function ReportForm({
 
       <TextField
         label=""
-        inputProps={{ maxlength: CHARACTER_LIMIT }}
         value={message}
-        // helperText={`${message.length}/${CHARACTER_LIMIT}`}
         helperText="* לא לשכוח כי השיתוף אנונימי"
         onChange={(e) => handleTyping(e)}
         margin="normal"

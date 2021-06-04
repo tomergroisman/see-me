@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getClasses, getSchools, submitLogin } from "../service/calls";
+import { classesLetters } from "../service/dictionaries";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login({setToken}) {
-  const [schoolsList, setSchoolsList] = useState({});
+  const [schoolsList, setSchoolsList] = useState([]);
   const [classesList, setClassesList] = useState({});
 
   const [schoolID, setSchoolID] = useState(null);
@@ -38,17 +39,25 @@ export default function Login({setToken}) {
   async function handleSelectSchool(e) {
     const _schoolID = e.target.value;
     setSchoolID(_schoolID);
-    const classes = await getClasses(_schoolID);
-    setClassesList(classes);
+    const schoolDetails = await getClasses(_schoolID);
+    // const {address,name,city,classes} = schoolDetails
+    
+    // const classesArray = Object.keys(classes).map((class)=>{
+    //   const 
+    //   return 
+    // })
+    setClassesList(schoolDetails);
   }
   async function handleSelectClass(e) {
-    const _classID = e.target.value;
-    setClassID(_classID);
+    const classID = e.target.value;
+
+    setClassID(classID);
   }
 
   async function handleSubmit() {
-    const userToken = await submitLogin(classID);
+    const { classToken, userToken } = await submitLogin(classID);
     localStorage.setItem("token", userToken);
+    localStorage.setItem("classToken", classToken);
     setToken(userToken)
   }
 
@@ -61,15 +70,19 @@ export default function Login({setToken}) {
           <Select
             labelId="demo-simple-select-filled-label"
             id="demo-simple-select-filled"
-            value={0}
+            value={schoolID}
             onChange={(e) => handleSelectSchool(e)}
           >
             <MenuItem value="">
               <em>-</em>
             </MenuItem>
-            {Object.keys(schoolsList).map((school) => {
-              const { name, city, address, _id } = school;
-              return <MenuItem value={_id}>{name}</MenuItem>;
+            {schoolsList.map((school,index) => {
+              const { name, city, address, id: _id } = school;
+              return (
+              <MenuItem value={_id}key={index + 'school'}>
+                {name}
+                </MenuItem>
+                )
             })}
           </Select>
         </FormControl>
@@ -80,17 +93,19 @@ export default function Login({setToken}) {
             <Select
               labelId="demo-simple-select-filled-label"
               id="demo-simple-select-filled"
-              value={0}
+              value={classID}
               onChange={(e) => handleSelectClass(e)}
             >
               <MenuItem value="">
                 <em>-</em>
               </MenuItem>
-              {Object.keys(classesList).map((classs) => {
-                const { grade, class_number, school_id, _id } = classs;
+              {Object.keys(classesList).map((key) => {
+                const classs = classesList[key]
+                const { grade, class_number, _id} = classs;
+                const classID = _id["$oid"]
                 return (
-                  <MenuItem value={_id}>
-                    {grade}`{class_number}
+                  <MenuItem value={classID} key={key + 'class'}>
+                    {classesLetters[grade]}`{class_number}
                   </MenuItem>
                 );
               })}
@@ -98,7 +113,7 @@ export default function Login({setToken}) {
           </FormControl>
         ) : null}
 
-        <Button
+        <StyledButton
           disabled={!(schoolID && classID)}
           variant="contained"
           color="primary"
@@ -106,7 +121,7 @@ export default function Login({setToken}) {
           onClick={handleSubmit}
         >
           כניסה
-        </Button>
+        </StyledButton>
       </LoginContainer>
     </>
   );
@@ -118,4 +133,12 @@ const LoginContainer = styled.div`
   height: 100vh;
   display:flex;
   flex-direction: column;
+`;
+
+const StyledButton = styled(Button)`
+  font-size: 2vh;
+  border-radius: 15px;
+  width: 60%;
+  height: 52px;
+  margin-top: 20vh;
 `;
