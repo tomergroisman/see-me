@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getClasses, getSchools, submitLogin } from "../service/calls";
 import { classesLetters } from "../service/dictionaries";
+import Logo from "./Logo";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -19,8 +20,8 @@ export default function Login({setToken}) {
   const [schoolsList, setSchoolsList] = useState([]);
   const [classesList, setClassesList] = useState({});
 
-  const [schoolID, setSchoolID] = useState(null);
-  const [classID, setClassID] = useState(null);
+  const [schoolID, setSchoolID] = useState('');
+  const [classID, setClassID] = useState('');
 
   const [submitLoading, setSubmitLoading] = useState(false)
 
@@ -35,12 +36,6 @@ export default function Login({setToken}) {
     const _schoolID = e.target.value;
     setSchoolID(_schoolID);
     const schoolDetails = await getClasses(_schoolID);
-    // const {address,name,city,classes} = schoolDetails
-    
-    // const classesArray = Object.keys(classes).map((class)=>{
-    //   const 
-    //   return 
-    // })
     setClassesList(schoolDetails);
   }
   async function handleSelectClass(e) {
@@ -59,9 +54,11 @@ export default function Login({setToken}) {
 
   return (
     <>
-      <LoginContainer>
-        <h1>מסך התחברות</h1>
-        {schoolsList.length>0?<FormControl variant="filled" className={classes.formControl}>
+      <LoginContainer>      
+          <Logo />
+
+        <Title>מסך התחברות</Title>
+        {schoolsList.length>0?<FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="demo-simple-select-filled-label">בית ספר</InputLabel>
           <Select
             labelId="demo-simple-select-filled-label"
@@ -84,7 +81,7 @@ export default function Login({setToken}) {
         </FormControl> : <CircularProgress/>}
 
         {schoolID ? (
-          <FormControl variant="filled" className={classes.formControl}>
+          <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-filled-label">כיתה</InputLabel>
             <Select
               labelId="demo-simple-select-filled-label"
@@ -138,3 +135,7 @@ const StyledButton = styled(Button)`
   height: 52px;
   margin-top: 20vh;
 `;
+
+const Title = styled.h1`
+  margin-top: 9vh;
+`
