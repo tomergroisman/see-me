@@ -36,9 +36,16 @@ export default function ReportForm({
         )}
       </SliderContainer>
 
-      <h2>מה שלומך היום?</h2>
+      <h2>
+כיף לראות אותך פה,
+<br/>
+  מה חווית היום?
+      </h2>
 
-      <ValuesSlider reportValue={reportValue} setReportValue={setReportValue} />
+      <ValuesSlider
+        reportValue={reportValue}
+        setReportValue={setReportValue}
+      />
 
       <TextField
         label=""
@@ -48,9 +55,11 @@ export default function ReportForm({
         margin="normal"
         style={{ width: "90%" }}
         variant="outlined"
-        placeholder="ניתן גם להוסיף כמה מילים.."
+        // placeholder="ניתן גם להוסיף כמה מילים.."
+        placeholder="מה הייתה החוויה? איזה רגש עלה בך? איך בחרת להתמודד?"
         multiline
         rows={3}
+        // FormHelperTextProps={{marginLeft:'0'}}
       />
 
       <StyledButton

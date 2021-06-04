@@ -1,4 +1,3 @@
-import { Button } from "@material-ui/core";
 import Confetti from "react-confetti";
 import Quote from "./Quote";
 import styled from "styled-components";
