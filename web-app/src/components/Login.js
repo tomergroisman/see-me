@@ -55,9 +55,8 @@ export default function Login({setToken}) {
   }
 
   async function handleSubmit() {
-    const { classToken, userToken } = await submitLogin(classID);
+    const userToken  = await submitLogin(classID);
     localStorage.setItem("token", userToken);
-    localStorage.setItem("classToken", classToken);
     setToken(userToken)
   }
 

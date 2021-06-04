@@ -6,10 +6,10 @@ const HTTPSHANDLER = "https://vast-bayou-60975.herokuapp.com/";
 const baseURL = HTTPSHANDLER + "http://18.133.245.223:3000";
 
 export async function submitReport(reportValue, message) {
-  const classToken = localStorage.getItem('classToken')
-  if (!classToken) return;
+  const token = localStorage.getItem('token')
+  if (!token) return;
 
-  const url = `${baseURL}/report/${classToken}`;
+  const url = `${baseURL}/report/${token}`;
   const mappedValue = mapValues(reportValue);
   const payload = { report: mappedValue, message };
 
@@ -30,5 +30,5 @@ export async function submitLogin(classID) {
   const url = baseURL + `/api/student`;
   const { data: userTokenObject } = await axios.post(url, { class_id: classID });
   const { class_ref: classToken, id: userToken } = userTokenObject
-  return { classToken, userToken };
+  return userToken
 }
