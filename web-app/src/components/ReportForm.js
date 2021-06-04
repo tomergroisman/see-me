@@ -3,13 +3,18 @@ import styled from "styled-components";
 import ValuesSlider from "./ValuesSlider";
 import { getSchool, submitReport } from "../service/calls";
 import { mapValues } from "../service/shared";
+import treeNegative2 from '../assets/trees/-2.png'
+import treeNegative1 from '../assets/trees/-1.png'
+import treePositive1 from '../assets/trees/1.png'
+import treePositive2 from '../assets/trees/2.png'
+import treeNatural0 from '../assets/trees/0.png'
 
-const emojisDic = {
-  "-2": "😥",
-  "-1": "😔",
-  0: "😐",
-  1: "😊",
-  2: "😄",
+const treesStatesDic = {
+  "-2": treeNegative2,
+  "-1": treeNegative1,
+  0: treeNatural0,
+  1: treePositive1,
+  2: treePositive2,
 };
 
 export default function ReportForm({
@@ -29,17 +34,13 @@ export default function ReportForm({
     <>
       <h1>היי, זה אני SeeMe !👋</h1>
       <SliderContainer>
-        {reportValue !== 0 ? (
-          emojisDic[mapValues(reportValue)]
-        ) : (
-          <TreeImage src="https://cdn.iconscout.com/icon/premium/png-512-thumb/tree-emoji-1587568-1346171.png" />
-        )}
+        <TreeImage src={treesStatesDic[mapValues(reportValue)]} />
       </SliderContainer>
 
       <h2>
-כיף לראות אותך פה,
-<br/>
-  מה חווית היום?
+        כיף לראות אותך פה,
+        <br />
+        מה חווית היום?
       </h2>
 
       <ValuesSlider
@@ -59,7 +60,7 @@ export default function ReportForm({
         placeholder="מה הייתה החוויה? איזה רגש עלה בך? איך בחרת להתמודד?"
         multiline
         rows={3}
-        // FormHelperTextProps={{marginLeft:'0'}}
+      // FormHelperTextProps={{marginLeft:'0'}}
       />
 
       <StyledButton
@@ -83,9 +84,8 @@ const StyledButton = styled(Button)`
 `;
 const SliderContainer = styled.div`
   font-size: 10vh;
-  margin-bottom: 5vh;
   min-height: 10vh;
 `;
 const TreeImage = styled.img`
-  height: 15vh;
+  height: 25vh;
 `;
