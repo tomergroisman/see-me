@@ -1,11 +1,4 @@
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  makeStyles,
-  MenuItem,
-  Select,
-} from "@material-ui/core";
+import {  Button,  FormControl,  InputLabel,  makeStyles,  MenuItem,  Select,CircularProgress} from "@material-ui/core";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getClasses, getSchools, submitLogin } from "../service/calls";
@@ -28,6 +21,8 @@ export default function Login({setToken}) {
 
   const [schoolID, setSchoolID] = useState(null);
   const [classID, setClassID] = useState(null);
+
+  const [submitLoading, setSubmitLoading] = useState(false)
 
   const classes = useStyles();
 
@@ -55,16 +50,18 @@ export default function Login({setToken}) {
   }
 
   async function handleSubmit() {
+    setSubmitLoading(true)
     const userToken  = await submitLogin(classID);
     localStorage.setItem("token", userToken);
     setToken(userToken)
+    setSubmitLoading(false)
   }
 
   return (
     <>
       <LoginContainer>
         <h1>מסך התחברות</h1>
-        <FormControl variant="filled" className={classes.formControl}>
+        {schoolsList.length>0?<FormControl variant="filled" className={classes.formControl}>
           <InputLabel id="demo-simple-select-filled-label">בית ספר</InputLabel>
           <Select
             labelId="demo-simple-select-filled-label"
@@ -84,7 +81,7 @@ export default function Login({setToken}) {
                 )
             })}
           </Select>
-        </FormControl>
+        </FormControl> : <CircularProgress/>}
 
         {schoolID ? (
           <FormControl variant="filled" className={classes.formControl}>
@@ -113,13 +110,13 @@ export default function Login({setToken}) {
         ) : null}
 
         <StyledButton
-          disabled={!(schoolID && classID)}
+          disabled={!(schoolID && classID) || submitLoading}
           variant="contained"
           color="primary"
           style={{ fontSize: "20px", borderRadius: "15px" }}
           onClick={handleSubmit}
         >
-          כניסה
+          {!submitLoading?'כניסה':<CircularProgress color="secondary"/>}
         </StyledButton>
       </LoginContainer>
     </>
