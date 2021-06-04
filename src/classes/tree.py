@@ -28,13 +28,21 @@ class Tree:
         """
         raw_reports = Reports.get_new_reports(self.class_id)
         if len(raw_reports) == 0:
-            return []
+            return [[], None]
 
         reports = list(map(lambda report: report.report, raw_reports))
         colors = Colors(n_leds=self.n_leds)
         color_list = colors.generate_color_list(reports)
 
-        return color_list
+        avg = np.mean(reports)
+        if avg > 0 and avg < 2:
+            avg = 1
+        elif avg < 0 and avg > -2:
+            avg = -1
+        elif avg == 0:
+            avg = -1
+        
+        return [color_list, avg]
 
     def preview(self):
         """

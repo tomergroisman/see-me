@@ -20,9 +20,9 @@ def update_tree(class_id, use_n_leds=True):
         print("id or query are not valid")
         return "ERROR: id or query are not valid"
     
-    lights = tree.update()
+    [lights, avg] = tree.update()
     if len(lights) > 0:
         print("UPDATE tree of id " + class_id)
-        return f"{class_id} {','.join(str(light) for light in lights)}"
+        return f"{class_id} {','.join(str(light) for light in lights)} {avg} "
     else:
         return class_id + " "

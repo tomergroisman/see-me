@@ -23,7 +23,7 @@ def add_report(student_id):
 @cross_origin()
 def mock_reds():       
     Reports.add("6047c75db313be4c8829b7d7", -2, None)
-    Reports.add("6047c75db313be4c8829b7d7", -2, None)
+    Reports.add("6047c75db313be4c8829b7d7", -1, None)
     Reports.add("6047c75db313be4c8829b7d7", -2, None)
     Reports.add("6047c75db313be4c8829b7d7", -2, None)
     Reports.add("6047c75db313be4c8829b7d7", 2, None)
@@ -36,7 +36,7 @@ def mock_greens():
     Reports.add("6047c75db313be4c8829b7d7", 2, None)
     Reports.add("6047c75db313be4c8829b7d7", 2, None)
     Reports.add("6047c75db313be4c8829b7d7", 2, None)
-    Reports.add("6047c75db313be4c8829b7d7", 2, None)
+    Reports.add("6047c75db313be4c8829b7d7", 1, None)
     Reports.add("6047c75db313be4c8829b7d7", -2, None)
     print("MOCK green report")
     return "Success"
