@@ -8,7 +8,7 @@
 
 /************** Definitions **************/
 
-#define NUM_LEDS 60
+#define NUM_LEDS 61
 
 #define MSG_BUFFER_SIZE 1024
 #define buttonPin D5
@@ -44,6 +44,7 @@ uint32_t lastReconnectAttempt = 0;
 
 char CLASS_ID[] = "6047c75db313be4c8829b7d5";
 int colors[MSG_BUFFER_SIZE];
+int reportsAvg;
 
 /********* Import Helper Classes *********/
 

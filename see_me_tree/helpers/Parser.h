@@ -27,9 +27,14 @@ void parseUpdate() {
         Serial.println("Not me");
     }
     
+    
     char* payload = strtok(NULL, " ");
     Serial.print("payload: ");
     Serial.println(payload);
+
+    reportsAvg = atoi(strtok(NULL, " "));
+    Serial.print("reportAvg: ");
+    Serial.println(reportsAvg);
 
     char* color = strtok(payload, ",");
     int i = 0;
@@ -39,7 +44,8 @@ void parseUpdate() {
         i++;
     }
     colors[i] = -1;
-    
+
+
 }
 
 // Parse a preview message

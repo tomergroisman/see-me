@@ -2,6 +2,16 @@
 
 #define TX 11
 #define RX 10
+#define MAX_SAMPLES 1   // The max number of sample type
+
+int SAMPLES_NUMS[] = { 1, 1, 1, 1 };   // The number of samples per sample type
+
+int samples[4][1] = {
+  { 3 },    // Red reports
+  { 4 },    // Red-Green reports
+  { 1 },    // Green-Red reports
+  { 7 }     // Green reports
+};
 
 SerialMP3Player mp3(RX,TX);
 
@@ -12,7 +22,7 @@ void setup() {
   delay(500);                           // Wait for init
 
   mp3.sendCommand(CMD_SEL_DEV, 0, 2);   // Select sd-card
-  mp3.setVol(15);
+  mp3.setVol(20);
   delay(500);                           // Wait for init
   Serial.println("START");
 
@@ -24,9 +34,16 @@ void loop() {
 
     Serial.println("Got something!");
     Serial.print("Message: ");
-    int n = Serial.read();
-    Serial.println(n);
-    mp3.play(n);
+    int i = Serial.read();
+    Serial.print("type: ");
+    Serial.println(i);
+    int j = random(SAMPLES_NUMS[i]);
+    Serial.print("sample number: ");
+    Serial.println(j);
+    Serial.print("sample: ");
+    Serial.println(samples[i][j]);
+    
+    mp3.play(samples[i][j]);
 
   }
 }

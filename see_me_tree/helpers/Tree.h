@@ -70,8 +70,21 @@ class Tree {
                     }
 
                     colors[0] = -1;
-                    SoundSerial.write(counter);
-                    counter += 2;
+
+                    int offset;
+                    if (reportsAvg > 0) {
+
+                        offset = 1;
+
+                    }
+                    else {
+
+                        offset = 2;
+
+                    }
+                    SoundSerial.write(reportsAvg + offset);
+                    Serial.print("sample: ");
+                    Serial.println(reportsAvg + offset);
                     
                 }
 
