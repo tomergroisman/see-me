@@ -41,7 +41,7 @@ export default function ReportForm({
       <ValuesSlider reportValue={reportValue} setReportValue={setReportValue} />
 
       <TextField
-        label="ניתן גם להוסיף כמה מילים.."
+        label=""
         inputProps={{ maxlength: CHARACTER_LIMIT }}
         value={message}
         // helperText={`${message.length}/${CHARACTER_LIMIT}`}
@@ -50,7 +50,7 @@ export default function ReportForm({
         margin="normal"
         style={{ width: "90%" }}
         variant="outlined"
-        placeholder={""}
+        placeholder="ניתן גם להוסיף כמה מילים.."
         multiline
         rows={3}
       />

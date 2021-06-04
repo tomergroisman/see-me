@@ -32,35 +32,20 @@ const PrettoSlider = withStyles({
   rail: {
     height: 15,
     borderRadius: 8,
-    background: "linear-gradient(to right, red, pink ,lightgreen,  green)",
+    background: "linear-gradient(to right, red, lightcoral ,lightgreen,  green)",
     opacity: 1,
   },
-  mark:{
-    color:'transparent'
+  mark: {
+    color: 'transparent'
   }
 })(Slider);
 
 const marks = [
-  {
-    value: -2,
-    label: "חוויה שלילית",
-  },
-  {
-    value: -1,
-    label: "",
-  },
-  {
-    value: 0,
-    label: "",
-  },
-  {
-    value: 1,
-    label: "",
-  },
-  {
-    value: 2,
-    label: "חוויה חיובית",
-  },
+  { value: -2, label: "חוויה שלילית", },
+  // { value: -1, label: "", },
+  // { value: 0, label: "", },
+  // { value: 1, label: "", },
+  { value: 2, label: "חוויה חיובית", },
 ];
 
 export default function ValuesSlider({ setReportValue, reportValue }) {
