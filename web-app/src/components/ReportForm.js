@@ -2,20 +2,8 @@ import { Button, TextField } from "@material-ui/core";
 import styled from "styled-components";
 import ValuesSlider from "./ValuesSlider";
 import { getSchool, submitReport } from "../service/calls";
-import { mapValues } from "../service/shared";
-import treeNegative2 from '../assets/trees/-2.png'
-import treeNegative1 from '../assets/trees/-1.png'
-import treePositive1 from '../assets/trees/1.png'
-import treePositive2 from '../assets/trees/2.png'
-import treeNatural0 from '../assets/trees/0.png'
+import '../App.css'
 
-const treesStatesDic = {
-  "-2": treeNegative2,
-  "-1": treeNegative1,
-  0: treeNatural0,
-  1: treePositive1,
-  2: treePositive2,
-};
 
 export default function ReportForm({
   reportValue,
@@ -32,45 +20,44 @@ export default function ReportForm({
 
   return (
     <>
-      <h1>היי, זה אני SeeMe !👋</h1>
-      <SliderContainer>
-        <TreeImage src={treesStatesDic[mapValues(reportValue)]} />
-      </SliderContainer>
-
-      <h2>
-        כיף לראות אותך פה,
-        <br />
-        מה חווית היום?
-      </h2>
-
+      <h1>היי, זה אני SeeMe !</h1>
       <ValuesSlider
         reportValue={reportValue}
         setReportValue={setReportValue}
       />
+      {reportValue !== 0 ? <>
+        {/* <div style={{ textAlign: 'right' }}>
 
-      <TextField
-        label=""
-        value={message}
-        helperText="* לא לשכוח כי השיתוף אנונימי"
-        onChange={(e) => handleTyping(e)}
-        margin="normal"
-        style={{ width: "90%" }}
-        variant="outlined"
-        // placeholder="ניתן גם להוסיף כמה מילים.."
-        placeholder="מה הייתה החוויה? איזה רגש עלה בך? איך בחרת להתמודד?"
-        multiline
-        rows={3}
-      // FormHelperTextProps={{marginLeft:'0'}}
-      />
+          <AddSomeWordsLabel>
+            ניתן גם להוסיף כמה מילים..
+        </AddSomeWordsLabel>
+        </div> */}
+        <StyledTextField
+          scale={reportValue !== 0 ? 1 : 0}
+          label=""
+          value={message}
+          helperText="*  השיתוף  הינו אנונימי"
+          onChange={(e) => handleTyping(e)}
+          margin="normal"
+          variant="outlined"
+          // placeholder="ניתן גם להוסיף כמה מילים.."
+          placeholder="מה הייתה החוויה? איזה רגש עלה בך? איך בחרת להתמודד?"
+          multiline
+          rows={3}
+        // className="expandable"
+        // FormHelperTextProps={{marginLeft:'0'}}
+        /> </> : null}
+      <div style={{ position: 'absolute', bottom: '2vh', width: '100%' }}>
 
-      <StyledButton
-        disabled={reportValue == 0}
-        variant="contained"
-        color="primary"
-        onClick={handleSubmit}
-      >
-        שיתוף
+        <StyledButton
+          disabled={reportValue == 0}
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+        >
+          שיתוף
       </StyledButton>
+      </div>
     </>
   );
 }
@@ -78,14 +65,23 @@ export default function ReportForm({
 const StyledButton = styled(Button)`
   font-size: 2vh;
   border-radius: 15px;
-  width: 90%;
+  width: 70%;
   height: 46px;
   margin-top: 5vh;
+  position:relative;
 `;
-const SliderContainer = styled.div`
-  font-size: 10vh;
-  min-height: 10vh;
+const StyledTextField = styled(TextField)`
+  width:90%;
+  overflow: hidden;
+
+  transition: all 2.5s ease-in-out;
+  transform-origin: left top;
+  transform: scaleY(${props => props.scale});
 `;
-const TreeImage = styled.img`
-  height: 25vh;
+
+const AddSomeWordsLabel = styled.div`
+  text-align:right;
+  color:#444444;
+  width:90%;
+  margin-top:3vh;
 `;

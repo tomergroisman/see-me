@@ -11,12 +11,11 @@ const AppDiv = styled.div`
   direction: rtl;
   text-align: center;
   margin: auto;
-  font-family: "Calibri";
-
   padding: 52px 5% 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height:100%;
 `;
 
 function Home() {

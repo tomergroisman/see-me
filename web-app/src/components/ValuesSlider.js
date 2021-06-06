@@ -1,7 +1,9 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
-import { mapColor } from "../service/shared";
+import { mapColor, mapValues } from "../service/shared";
+import { treesStatesDic } from "../service/dictionaries";
+import styled from "styled-components";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +34,7 @@ const PrettoSlider = withStyles({
   rail: {
     height: 15,
     borderRadius: 8,
-    background: "linear-gradient(to right, red, lightcoral ,lightgreen,  green)",
+    background: "linear-gradient(to right, red, lightcoral ,#58af58,  green)",
     opacity: 1,
   },
   mark: {
@@ -48,32 +50,55 @@ const marks = [
   { value: 2, label: "חוויה חיובית", },
 ];
 
+
+
 export default function ValuesSlider({ setReportValue, reportValue }) {
   const classes = useStyles();
-  const [color, setColor] = React.useState(mapColor(reportValue));
+  const [color, setColor] = React.useState(mapValues(reportValue));
 
   function handleOnChange(value) {
     setReportValue(value);
   }
 
   return (
-    <div className={classes.root}>
-      <PrettoSlider
-        marks={marks}
-        valueLabelDisplay="on"
-        valueLabelDisplay="off"
-        aria-label="slider"
-        defaultValue={reportValue}
-        min={-2}
-        max={2}
-        step={1}
-        onChangeCommitted={(_, value) => {
-          handleOnChange(value);
-        }}
-        onChange={(_, value) => {
-          setColor(mapColor(value));
-        }}
-      />
-    </div>
-  );
+    <>
+      <div className={classes.root}>
+        <SliderContainer>
+          <TreeImage src={treesStatesDic[color]} />
+        </SliderContainer>
+
+        {
+          // reportValue === 0 && 
+          < h3 >
+            כיף לראות אותך פה,
+        <br />
+        מה חווית היום?
+      </h3>}
+
+        <PrettoSlider
+          marks={marks}
+          valueLabelDisplay="on"
+          valueLabelDisplay="off"
+          aria-label="slider"
+          defaultValue={reportValue}
+          min={-2}
+          max={2}
+          step={1}
+          onChangeCommitted={(_, value) => {
+            handleOnChange(value);
+          }}
+          onChange={(_, value) => {
+            setColor(mapValues(value));
+          }}
+        />
+      </div>
+    </>);
 }
+
+const SliderContainer = styled.div`
+  font-size: 10vh;
+  min-height: 10vh;
+`;
+const TreeImage = styled.img`
+  height: 25vh;
+`;
