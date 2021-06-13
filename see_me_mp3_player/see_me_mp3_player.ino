@@ -2,9 +2,7 @@
 
 #define TX 11
 #define RX 10
-#define MAX_SAMPLES 1   // The max number of sample type
-
-int SAMPLES_NUMS[] = { 1, 1, 1, 1 };   // The number of samples per sample type
+#define MAX_SAMPLES 3   // The max number of sample type
 
 int samples[4][3] = {
   { 9, 9, 9 },    // Red reports
@@ -37,7 +35,7 @@ void loop() {
     int i = Serial.read();
     Serial.print("type: ");
     Serial.println(i);
-    int j = random(SAMPLES_NUMS[i]);
+    int j = random(MAX_SAMPLES);
     Serial.print("sample number: ");
     Serial.println(j);
     Serial.print("sample: ");
