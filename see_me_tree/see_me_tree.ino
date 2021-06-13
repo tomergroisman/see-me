@@ -2,7 +2,6 @@
 
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
-#include <PubSubClient.h>
 #include <FastLED.h>
 #include <SoftwareSerial.h>
 
@@ -35,10 +34,7 @@ SoftwareSerial SoundSerial(13, 15);
 /************ Set Connections ************/
 
 WiFiClient espClient;
-PubSubClient mqtt(espClient);
-unsigned long lastMsg = 0;
 char msg[MSG_BUFFER_SIZE];
-uint32_t lastReconnectAttempt = 0;
 
 /********* Variable Declerations *********/
 
@@ -62,7 +58,7 @@ void setup() {
   
   Serial.begin(115200);
   SoundSerial.begin(115200);
-  
+    
   connectToWifi();
   colors[0] = -1;
 
