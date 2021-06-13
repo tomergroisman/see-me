@@ -26,4 +26,4 @@ def check_connection():
 
 if __name__ == '__main__':
     # Start with a debugger
-    app.run(host='0.0.0.0', port=3000)
+    app.run(host='0.0.0.0', port=3000, debug=False)
