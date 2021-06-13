@@ -23,7 +23,7 @@ class Flasher {
         long delta;
         StateMachine stateMachine;
         Color dimColor;
-        bool toFullBrightness = false;
+        bool toFullBrightness = true;
   
     public:
 
@@ -78,7 +78,7 @@ class Flasher {
                     else {
 
                         setRGB(color);
-                        setForStay();
+                        setForStay(true);
                         stateMachine.transitionTo(stateMachine.ON);
 
                     }
@@ -104,7 +104,7 @@ class Flasher {
                     }
                     else {
 
-                        setForStay();
+                        setForStay(false);
 
                     }
                     break;
@@ -160,12 +160,17 @@ class Flasher {
         }
 
         // Set all relevant variables for on state
-        void setForStay() {
+        void setForStay(bool isInit) {
 
             startTime = millis();
             delta = brightnessInterval;
             int brightness = random(50, 150);
-            toFullBrightness = !toFullBrightness;
+            if (isInit) {
+                toFullBrightness = false;
+            }
+            else {
+                toFullBrightness = !toFullBrightness;
+            }
             if (!toFullBrightness) {
                 dimColor = color.substract(brightness);
             }

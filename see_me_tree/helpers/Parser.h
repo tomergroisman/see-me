@@ -25,8 +25,8 @@ void parseUpdate() {
     if (!String(classId).equals(String(CLASS_ID))) {
         
         Serial.println("Not me");
+        return;
     }
-    
     
     char* payload = strtok(NULL, " ");
     Serial.print("payload: ");
