@@ -6,11 +6,11 @@
 
 int SAMPLES_NUMS[] = { 1, 1, 1, 1 };   // The number of samples per sample type
 
-int samples[4][1] = {
-  { 3 },    // Red reports
-  { 4 },    // Red-Green reports
-  { 1 },    // Green-Red reports
-  { 7 }     // Green reports
+int samples[4][3] = {
+  { 9, 9, 9 },    // Red reports
+  { 11, 13, 15 },    // Red-Green reports
+  { 3, 5, 7 },    // Green-Red reports
+  { 1, 1, 1 }     // Green reports
 };
 
 SerialMP3Player mp3(RX,TX);

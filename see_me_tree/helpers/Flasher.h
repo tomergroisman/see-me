@@ -23,7 +23,7 @@ class Flasher {
         long delta;
         StateMachine stateMachine;
         Color dimColor;
-        bool toFullBrightness = true;
+        bool toFullBrightness = false;
   
     public:
 
@@ -67,7 +67,7 @@ class Flasher {
                 }
                 
                 case stateMachine.TURN_ON: {
-
+                    
                     int diff = millis() - startTime;
                     float prec = float(diff) / float(delta);
                     if (diff <= delta) {

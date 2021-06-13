@@ -19,10 +19,10 @@
 /*********** Wifi Configuration **********/
 
 // Update these with values suitable for your network.
-//const char* ssid = "IDC-Wireless";
-//const char* password = "";
-const char* ssid = "SeeMe";
-const char* password = "12345678";
+const char* ssid = "IDC-Wireless";
+const char* password = "";
+//const char* ssid = "SeeMe";
+//const char* password = "12345678";
 
 /******** Web Server Configuration *******/
 
