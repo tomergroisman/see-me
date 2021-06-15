@@ -1,6 +1,6 @@
 # SeeMe
 
-This project was mabe by 2021 [miLAB](http://milab.idc.ac.il) (Media Innovation Lab) prototype program on IDC Hertzelyia.\
+This project was mabe by 2021 [miLAB](http://milab.idc.ac.il) (Media Innovation Lab) prototype program, IDC Hertzelyia.\
 The product helps children on elemenatry school age to handle offensive content they encounter while using the web and social media.
 
 ## Components
