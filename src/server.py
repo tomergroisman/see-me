@@ -2,9 +2,12 @@ from flask import Flask, request, escape
 from flask_cors import CORS
 from multiprocessing import Process, Pool
 from routes import api, report, update
+import logging
 
 # Create Flask instance
 app = Flask(__name__)
+log = logging.getLogger('werkzeug')
+log.disabled = True
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
