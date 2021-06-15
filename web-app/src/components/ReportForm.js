@@ -47,7 +47,7 @@ export default function ReportForm({
         // className="expandable"
         // FormHelperTextProps={{marginLeft:'0'}}
         /> </> : null}
-      <div style={{ position: 'absolute', bottom: '2vh', width: '100%' }}>
+      {/* <div style={{ position: 'absolute', bottom: '2vh', width: '100%' }}> */}
 
         <StyledButton
           disabled={reportValue == 0}
@@ -57,7 +57,7 @@ export default function ReportForm({
         >
           שיתוף
       </StyledButton>
-      </div>
+      {/* </div> */}
     </>
   );
 }
