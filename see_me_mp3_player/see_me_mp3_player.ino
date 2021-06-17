@@ -20,7 +20,6 @@ void setup() {
   delay(500);                           // Wait for init
 
   mp3.sendCommand(CMD_SEL_DEV, 0, 2);   // Select sd-card
-  mp3.setVol(20);
   delay(500);                           // Wait for init
   Serial.println("START");
 
