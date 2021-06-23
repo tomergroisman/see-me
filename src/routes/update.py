@@ -25,5 +25,5 @@ def update_tree(class_id, use_n_leds=True):
         print("UPDATE tree of id " + class_id)
         return f"{class_id} {','.join(str(light) for light in lights)} {avg} "
     else:
-        print("UPDATE tree of id " + class_id + "NO PAYLOAD")
+        print("UPDATE tree of id " + class_id + " NO PAYLOAD")
         return class_id + " , 0 "

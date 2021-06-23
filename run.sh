@@ -1,4 +1,4 @@
 #!/bin/sh -e
 
-source bin/activate
+source venv/bin/activate
 python src/server.py

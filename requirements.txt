@@ -1,0 +1,6 @@
+flask
+flask_cors
+mongoengine
+mongoengine_goodjson
+dotenv
+pytz
